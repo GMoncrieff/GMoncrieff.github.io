@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Reproducible R part 1</title>
+  
+  <meta property="description" itemprop="description" content="A gentle introduction to reproducible computing environments and research compendia"/>
+  
+  
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2020-04-16"/>
+  <meta property="article:created" itemprop="dateCreated" content="2020-04-16"/>
+  
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Reproducible R part 1"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="A gentle introduction to reproducible computing environments and research compendia"/>
+  <meta property="og:locale" content="en_US"/>
+  
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Reproducible R part 1"/>
+  <meta property="twitter:description" content="A gentle introduction to reproducible computing environments and research compendia"/>
+  
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","slug","description","categories","editor_options","output"]}},"value":[{"type":"character","attributes":{},"value":["Reproducible R part 1"]},{"type":"character","attributes":{},"value":["2020-04-16"]},{"type":"character","attributes":{},"value":["reproducible-r-part-1"]},{"type":"character","attributes":{},"value":["A gentle introduction to reproducible computing environments and research compendia\n"]},{"type":"character","attributes":{},"value":["R tutorial","Reproducible science"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["2020-04-16-reproducible-r-part-1_files/bowser-1.9.3/bowser.min.js","2020-04-16-reproducible-r-part-1_files/distill-2.2.21/template.v2.js","2020-04-16-reproducible-r-part-1_files/figure-html5/unnamed-chunk-5-1.png","2020-04-16-reproducible-r-part-1_files/figure-html5/unnamed-chunk-8-1.png","2020-04-16-reproducible-r-part-1_files/figure-html5/unnamed-chunk-9-1.png","2020-04-16-reproducible-r-part-1_files/jquery-1.11.3/jquery.min.js","2020-04-16-reproducible-r-part-1_files/webcomponents-2.0.0/webcomponents.js","compendium.png","launch.png","machine.jpg","naas.jpg","weir.jpeg"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+  
+  <style type="text/css">
+  
+  body {
+    background-color: white;
+  }
+  
+  .pandoc-table {
+    width: 100%;
+  }
+  
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+  
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+  
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+  
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+  
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+  
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+  
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .shaded .shaded-content {
+    background: white;
+  }
+  
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  d-article {
+    padding-bottom: 30px;
+  }
+  
+  d-appendix {
+    padding-top: 30px;
+  }
+  
+  d-article>p>img {
+    width: 100%;
+  }
+  
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+  
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  /* CSS for table of contents */
+  
+  .d-toc {
+    color: rgba(0,0,0,0.8);
+    font-size: 0.8em;
+    line-height: 1em;
+  }
+  
+  .d-toc-header {
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 1.3em;
+  }
+  
+  .d-toc a {
+    border-bottom: none;
+  }
+  
+  .d-toc ul {
+    padding-left: 0;
+  }
+  
+  .d-toc li>ul {
+    padding-top: 0.8em;
+    padding-left: 16px;
+    margin-bottom: 0.6em;
+  }
+  
+  .d-toc ul,
+  .d-toc li {
+    list-style-type: none;
+  }
+  
+  .d-toc li {
+    margin-bottom: 0.9em;
+  }
+  
+  .d-toc-separator {
+    margin-top: 20px;
+    margin-bottom: 2em;
+  }
+  
+  .d-article-with-toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  
+  
+  
+  /* Tweak code blocks (note that this CSS is repeated above in an injection
+     into the d-code shadow dom) */
+  
+  d-code {
+    overflow-x: auto !important;
+  }
+  
+  pre.d-code code.d-code {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+  
+  pre.text-output {
+  
+    font-size: 12px;
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  @media(min-width: 768px) {
+  
+  d-code {
+    overflow-x: visible !important;
+  }
+  
+  pre.d-code code.d-code  {
+      padding-left: 18px;
+      font-size: 14px;
+  }
+  pre.text-output {
+    font-size: 14px;
+  }
+  }
+  
+  /* Figure */
+  
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+  
+  .figure img {
+    width: 100%;
+  }
+  
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+  
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+  
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+  
+  
+  
+  /* Tweak 1000px media break to show more text */
+  
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+  
+    .grid {
+      grid-column-gap: 16px;
+    }
+  
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+  
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+  
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+  
+  
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+  
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  
+  /* Social footer */
+  
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+  
+  .disqus-comments {
+    margin-right: 30px;
+  }
+  
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+  
+  #disqus_thread {
+    margin-top: 30px;
+  }
+  
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+  
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+  
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+  
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+  
+  
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+  
+  
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+  
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+  
+  
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+  
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+  
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+  
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+  
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+  
+  
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+  
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+  
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+  
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+  
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  </style>
+  
+  <script type="application/javascript">
+  
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+  
+  // show body when load is complete
+  function on_load_complete() {
+  
+    // set body to visible
+    document.body.style.visibility = 'visible';
+  
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+  
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+  
+  function init_distill() {
+  
+    init_common();
+  
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+  
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+  
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+  
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+  
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+  
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+  
+    // create d-bibliography
+    var bibliography = $('<d-bibliography></d-bibliography>');
+    $('#distill-bibliography').wrap(bibliography);
+  
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+  
+    // replace citations with <d-cite>
+    $('.citation').each(function(i, val) {
+      appendix = true;
+      var cites = $(this).attr('data-cites').split(" ");
+      var dt_cite = $('<d-cite></d-cite>');
+      dt_cite.attr('key', cites.join());
+      $(this).replaceWith(dt_cite);
+    });
+    // remove refs
+    $('#refs').remove();
+  
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+  
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-toc a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+  
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+  
+    // replace code blocks with d-code
+    $('pre>code').each(function(i, val) {
+      var code = $(this);
+      var pre = code.parent();
+      var clz = "";
+      var language = pre.attr('class');
+      if (language) {
+        // map unknown languages to "clike" (without this they just dissapear)
+        if ($.inArray(language, ["bash", "clike", "css", "go", "html",
+                                 "javascript", "js", "julia", "lua", "markdown",
+                                 "markup", "mathml", "python", "svg", "xml"]) == -1)
+          language = "clike";
+        language = ' language="' + language + '"';
+        var dt_code = $('<d-code block' + language + clz + '></d-code>');
+        dt_code.text(code.text());
+        pre.replaceWith(dt_code);
+      } else {
+        code.addClass('text-output').unwrap().changeElementType('pre');
+      }
+    });
+  
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+  
+      // capture layout
+      var layout = $(this).attr('data-layout');
+  
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('d-code, pre.text-output, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+  
+  
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+  
+    // load distill framework
+    load_distill_framework();
+  
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+  
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+  
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+  
+      // table of contents
+      if (have_authors) // adjust border if we are in authors
+        $('.d-toc').parent().addClass('d-article-with-toc');
+  
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+  
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+  
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+  
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+  
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+  
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+  
+      // inject pre code styles (can't do this with a global stylesheet b/c a shadow root is used)
+      $('d-code').each(function(i, val) {
+        var style = document.createElement('style');
+        style.innerHTML = 'pre code { padding-left: 10px; font-size: 12px; border-left: 2px solid rgba(0,0,0,0.1); } ' +
+                          '@media(min-width: 768px) { pre code { padding-left: 18px; font-size: 14px; } }';
+        if (this.shadowRoot)
+          this.shadowRoot.appendChild(style);
+      });
+  
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+  
+      // clear polling timer
+      clearInterval(tid);
+  
+      // show body now that everything is ready
+      on_load_complete();
+    }
+  
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+  
+  }
+  
+  function init_downlevel() {
+  
+    init_common();
+  
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+  
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+  
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+  
+    // remove toc
+    $('.d-toc-header').remove();
+    $('.d-toc').remove();
+    $('.d-toc-separator').remove();
+  
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+  
+  
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+  
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+  
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+  
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+  
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+  
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+  
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+  
+    $('body').addClass('downlevel');
+  
+    on_load_complete();
+  }
+  
+  
+  function init_common() {
+  
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+  
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+  
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+  
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+  
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+  
+      }
+    });
+  
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+  
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+  
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+  
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+  
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+  
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+  
+  </script>
+  
+  <!--/radix_placeholder_distill-->
+  <script src="2020-04-16-reproducible-r-part-1_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="2020-04-16-reproducible-r-part-1_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="2020-04-16-reproducible-r-part-1_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="2020-04-16-reproducible-r-part-1_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Reproducible R part 1","description":"A gentle introduction to reproducible computing environments and research compendia","authors":[],"publishedDate":"2020-04-16T00:00:00.000+02:00"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Reproducible R part 1</h1>
+<p><p>A gentle introduction to reproducible computing environments and research compendia</p></p>
+</div>
+
+
+<div class="d-article">
+<p><em>You will get the most benefit from this tutorial if you already use <a href="https://git-scm.com/">git</a> and <a href="https://github.com/">github</a> in your workflow. These are essential tools for reproducibility in science. If you are not familiar with them check out <a href="https://happygitwithr.com/">this tutorial</a> by R guru Jenny Bryan for a great comprehensive introduction, or <a href="https://github.com/bcgov/bcgov-data-science-resources/wiki/Tutorial:-Intro-to-Git-&amp;-GitHub-for-the-R-User">this tutorial</a> for a crash course</em></p>
+<hr />
+<p>Anybody who works with data has at some point heard a colleague say ‘Well, it works on my computer’, expressing dismay at the fact that you cannot reproduce their results. <br /><br />
+<img src="machine.jpg" alt="machine.jpg"> <br /><br />
+One of the principle motivations for using software like R or Python to script our analysis over a point-and-click approach is to make our work reproducible -; increasing both the ease of collaboration and transparency in science. Even if we use free and open-source software, and even if we write clean, well documented code, and even if we share all our data using <a href="https://www.force11.org/group/fairgroup/fairprinciples">best practices</a> it is very rare for the software on any two computers to be identical. When you are trying to run someone else’s code, it is likely that one of the following things will differ between your machine, and the machine the code was tested/developed on:</p>
+<ul>
+<li>The version of the software used (eg R 3.6.1 vs R 3.5.2)<br />
+</li>
+<li>The versions of the packages/extensions used (ggplot2 3.3.0 vs ggplot2 2.2.0)<br />
+</li>
+<li>External software dependencies for packages (eg <a href="https://gdal.org/">gdal</a> for spatial analysis)</li>
+</ul>
+<p>We often refer to these three things collectively as your <em>environment</em>. Often your code will run without any hiccups even when environments differ. Software engineers try to make sure your code will not stop working if you use a slightly different versions. But with all the software and all the dependencies eventually something will give and things will break. Even if the code runs successfully, there is a chance that the results could differ.</p>
+<p><strong>The only way to be certain that code written by someones else will run on your machine and will produce the same results is to replicate their environment</strong></p>
+<p>It would be impossible to do this manually, and so there are plenty of solutions that range from the simple (ensuring you are using the same package versions), to the complex (almost reproducing your entire computer). We will start by exploring the easy-to-sue solution developed for R by our benevolent overlords at RStudio: renv</p>
+<h2 id="renv">renv</h2>
+<p><a href="https://rstudio.github.io/renv">renv</a> isolates your project package dependencies ensuring that you have a record of exactly what packages and which version you used. Normally when you install or update a package it is installed into a global library of packages on your machine (you can see the location of installed packages if you run <code>.libPaths()</code>). You will then load the packages used in your project in each script as and when you need. There is no record of which package and which version you used other than you calls to <code>library()</code>. We can use renv to create a file that records exactly that. This file is called the <em>lockfile</em>. Here is an example of what the lockfile looks like inside</p>
+<pre><code>
+&quot;R&quot;: {
+    &quot;Version&quot;: &quot;3.6.2&quot;,
+    &quot;Repositories&quot;: [
+      {
+        &quot;Name&quot;: &quot;CRAN&quot;,
+        &quot;URL&quot;: &quot;https://cran.rstudio.com&quot;
+      }
+    ]
+  },
+&quot;Packages&quot;: {
+    &quot;markdown&quot;: {
+      &quot;Package&quot;: &quot;markdown&quot;,
+      &quot;Version&quot;: &quot;1.0&quot;,
+      &quot;Source&quot;: &quot;Repository&quot;,
+      &quot;Repository&quot;: &quot;CRAN&quot;,
+      &quot;Hash&quot;: &quot;4584a57f565dd7987d59dda3a02cfb41&quot;
+    },
+    &quot;mime&quot;: {
+      &quot;Package&quot;: &quot;mime&quot;,
+      &quot;Version&quot;: &quot;0.7&quot;,
+      &quot;Source&quot;: &quot;Repository&quot;,
+      &quot;Repository&quot;: &quot;CRAN&quot;,
+      &quot;Hash&quot;: &quot;908d95ccbfd1dd274073ef07a7c93934&quot;
+    }
+  }
+}</code></pre>
+<h4 id="using-renv">Using renv</h4>
+<p>Using renv and creating lockfiles is <em>very</em> easy, requiring little to no modification to your existing workflows. Everything happens inside an R project, so make sure you create a separate project for each analysis for which you want to make a reproducible environment. You will also need to install renv before starting</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+install.packages(&#39;renv&#39;)</code></pre>
+</div>
+<p>When you are ready to start working, run</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+renv::init()</code></pre>
+</div>
+<p>this will initialize a new environment specific to your current project. You can now work as you normally would: writing code, installing packages, and loading them as and when you need. When you are ready to take a snapshot of your current environment run</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+renv::snapshot()</code></pre>
+</div>
+<p>to save the state of the project environment to the lockfile (<code>renv.lock</code>) in your project home directory. This details of which packages you used and their versions are now recorded to ensure that you environment is reproducible. You can continue working now and make further changes, and update the lockfile by running <code>renv::snapshot()</code> again.</p>
+<p>Perhaps you have made changes to your environment (eg updated a package that breaks your code). You can return to your previous state saved in the lockfile by running</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+renv::restore()</code></pre>
+</div>
+<p>this will return to the packages and version the last time you called <code>renv::snapshot()</code>.</p>
+<p>But what if you already have a project and you want to start using renv to manage the code and packages. No problem. Simply open the project and run <code>renv::init()</code>. The newly-created project environment search for any packages loaded in R files within the project, install them to the local package library, when you call <code>renv::snapshot()</code> these packages will be included in the lockfile.</p>
+<blockquote>
+<p>Tip: run all renv:: commands directly in the R console. There is no need to save them in your scripts because they only need to be run once, or infrequently, per project.</p>
+</blockquote>
+<h4 id="installing-and-managing-packages">Installing and managing packages</h4>
+<p>When you initialize a new environment with <code>renv::init</code> renv will search for packages mentioned in .r files in your project and install them in your new project environment, if you run <code>renv::init</code> at the start of a project before writing any code, you start nothing but the default r packages. You will need to install each package needed using <code>install.packages</code>. Only those packages loaded in your R scripts (and their dependencies) will be included in the lockfile. This is not ideal because it can take a while to install some packages, and will be come painful if you have waste this time every time you start a new R project. But renv has a solution to this. The full new package is only downloaded and installed the first time you install it after calling <code>renv::init</code>. In subsequent projects when you install the package renv will simply create a copy of the already installed package.</p>
+<h4 id="try-it-yourself">Try it yourself</h4>
+<p>Now is a good time to setup you first renv project. Open a new project in Rstudio. Run script to create a bog standard ggplot, then save it</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+library(ggplot2)
+
+ggplot(data=iris,aes(x=Sepal.Length,y=Petal.Length,colour=Species)) +
+  geom_point()</code></pre>
+<p><img src="2020-04-16-reproducible-r-part-1_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<p>Now run <code>renv::init</code> in the console. This will initialize your project, and install the libraries that are loaded by your scripts. You will see your project file <code>.Rproj</code>, your file with r code <code>.r</code>, a folder created by renv called <code>renv</code> which contains all the libraries for your project, and the lockfile <code>renv.lock</code>. Now you could continue working in your project taking snapshots with <code>renv::snapshot</code> or restoring to previous snapshots with <code>renv::restore</code> as and when you need.</p>
+<h4 id="collaborating-and-sharing-environments">Collaborating and sharing environments</h4>
+<p>While it is great to use renv to ensure that our code will always run regardless of changes we have made to our R installation or packages, the real motivation for adopting renv is to facilitate better collaboration. By creating and sharing lockfiles along with project code, collaborators (and our future selves - our most important collaborator) are just a <code>renv::restore</code> away from being able to run our code.</p>
+<p>The best part of this is how little is required. Simply share you lockfile, and whomever is using your code simply needs to run <code>renv::init</code> and <code>renv::restore</code> in a project with your code and lockfile. Assuming you are using git and github to share code, this means simply adding the lockfile to your github repo. Lets try this ourselves.</p>
+<h4 id="the-data">The data</h4>
+<p>For rest of this tutorial we will continue to work with an example dataset to demonstrate various approaches for reproducible R. The dataset is from a set of experiments run in South Africa between 1930 and 1990, testing the impact of alien tree species grown in plantation forests on streamflow in unmodified river catchments. The flow of rivers in each planted catchment was monitored over a number of years and compared to the flow in an adjacent unplanted river. The amount that flow was reduced in the planted catchment compared to the unplanted catchment is reported as a percentage and recorded every year as the plantation aged.</p>
+<p>&lt;img src="/weir.jpeg&gt;</p>
+<p>We would like understand how the streamflow reduction caused by the plantation increases as the plantation gets older and the impact of planting different species. This is what the data looks like</p>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">age</th>
+<th style="text-align: left;">spp</th>
+<th style="text-align: left;">condition</th>
+<th style="text-align: left;">location</th>
+<th style="text-align: right;">flow_reduction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">euc</td>
+<td style="text-align: left;">opt</td>
+<td style="text-align: left;">west_d</td>
+<td style="text-align: right;">0.1638554</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">euc</td>
+<td style="text-align: left;">opt</td>
+<td style="text-align: left;">west_d</td>
+<td style="text-align: right;">0.0578313</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">euc</td>
+<td style="text-align: left;">opt</td>
+<td style="text-align: left;">west_d</td>
+<td style="text-align: right;">0.2867470</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">euc</td>
+<td style="text-align: left;">opt</td>
+<td style="text-align: left;">west_d</td>
+<td style="text-align: right;">0.7421687</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">euc</td>
+<td style="text-align: left;">opt</td>
+<td style="text-align: left;">west_d</td>
+<td style="text-align: right;">0.8012048</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">euc</td>
+<td style="text-align: left;">opt</td>
+<td style="text-align: left;">west_d</td>
+<td style="text-align: right;">0.6397590</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The full report on these experiment, from which these data were transcribed is available <a href="http://www.wrc.org.za/wp-content/uploads/mdocs/810-1-00.pdf">here</a></p>
+<p>Each row in the data represents the measured streamflow reduction in a particular catchment at a particular age</p>
+<ul>
+<li>Column <code>age</code> is time in years since the catchment was planted</li>
+<li><code>spp</code> is the forestry species, with <code>euc</code> = <em>Eucalyptus spp</em> and <code>pin</code> = <em>Pinus spp</em></li>
+<li><code>condition</code> indicates the suitability of that location for growing the planted tree species, coded as either <code>opt</code> for optimal, or <code>sub</code> for suboptimal</li>
+<li><code>location</code> encodes the site of the plantation, and finally</li>
+<li><code>flow reduciton</code>, our response variable, indicates the percent reduction in streamflow relative to a reference catchment</li>
+</ul>
+<h4 id="clone-the-code-and-data">Clone the code and data</h4>
+<p>To get started, we begin as we often would, by cloning a github repository to our machine. We could do this the old-fashioned way, using <code>git clone</code> in the terminal, or clicking <code>New project</code> and selecting <code>Version control</code> in the Rstudio GUI. A neater way to do this is to use the package <code>usethis</code> which has lots of helpful functions for package developments and reproducibility in r. Running this code in R will clone the repo into a new project</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>because a lockfile is included in the repo, all you need to do is run <code>renv::init</code> to initialize your environment and <code>renv::restore</code> to bring the required packages into your environment and you are ready to run the code. Try it yourself and look at the dodgy analysis and it’s result</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body-outset">
+<p><img src="2020-04-16-reproducible-r-part-1_files/figure-html5/unnamed-chunk-9-1.png" width="624" data-distill-preview=1 /></p>
+</div>
+<p>you could improve on this, perhaps add some new analysis requiring additional packages. Then take a snapshot <code>renv::snapshot</code> and push the changes to github</p>
+<h2 id="full-reproducibility">Full reproducibility</h2>
+<p>renv is sufficient for most of our needs, ensuring that we and our collaborators are working with identical R environments. What it does not do is ensure that everything else behind the scenes on our machines are identical. This is not an issue most of the time because whether your code runs on a mac or a linux pc will not often alter the results of your R analysis. However, there are some bases that renv does not cover</p>
+<ul>
+<li>Some R packages require system dependencies, and renv may struggle to set them up for you<br />
+</li>
+<li>Some people do not want to have to download all your code and install all the packages to explore your analysis<br />
+</li>
+<li>Some people don’t use R or have it installed on their machine, but may still want to interact with and interrogate your analysis</li>
+</ul>
+<p>Wouldn’t it be great if there was someway to have a virtual machine available online to anybody that has all the packages installed needed to perform your analysis? With the simple click of a button they could fire up the machine, which would already have all your code and data, and run your code to inspect your results. Well…</p>
+<h4 id="binder">Binder</h4>
+<p>That is exactly what <a href="www.mybinder.org">Binder</a> does. You give binder the address of the git repo with your code and data, making sure that it has a file like a lockfile describing your environment, and binder will fire up a virtual machine running RStudio with everything needed to run your analysis already installed. Binder machines are small and should not be used for intensive computation. But they are really well suited for reproducing papers/figures/examples.</p>
+<p>A typical workflow would involve having all your code in a github repo, including a file called <code>runtime.txt</code> specifying the version of R used and <code>install.R</code> which lists the packages you need (Binder has not caught up with lockfiles yet). Then all you need to do is copy and paste the link to the github repo into the form on <a href="www.mybinder.org">www.mybinder.org</a>. It will churn away for a short while and eventually produce a link that takes you to a fully fledged RStudio instance accessible to anyone through their browser, with all the contents of your github repo inside. Lucky for us, even that simple step is not necessary, as there is a neat R package that will automate this for us.</p>
+<h4 id="holepunch">Holepunch</h4>
+<p><a href="https://karthik.github.io/holepunch/">Holepunch</a> automates the process a creating a binder instance from your R project. Lets go back to our streamflow project to see how it works. To install holepunch</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+devtools::install_github(&quot;karthik/holepunch&quot;)</code></pre>
+</div>
+<p>To use holepunch we need to have our analysis setup as an R project and linked to a github repo. Fortunately this is something we always do if we want to make our work reproducible so it is no extra work, and has already been done in our streamflow project. The first step is to create the two files needed by binder</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+library(holepunch)
+#install.R
+write_install()
+#runtime.txt
+write_runtime()</code></pre>
+</div>
+<p>next we add a link on the readme of our github readme to the binder instance. This link will look look this &lt;img src="launch.png&gt;</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+generate_badge()</code></pre>
+</div>
+<p>Now is the time that we want to push these updates to our github repo. Now if somebody wants to launch our binder they just have to click on the badge on the github page. This will take a while the first time you run it, as it needs to build an entire machine with all the software needed. Subsequently it will be much faster, as the machine image will already exist. Once this completes successfully you can click on the badge in your github repo and behold.</p>
+<p><br /><br />
+<strong>Try it out</strong> <br /></p>
+<h2 id="research-compendia">Research compendia</h2>
+<p>Up until now we have limited the discussion to ensuring our computing environment is reproducible. This is a very important component of reproducibility, but it is not sufficient. True reproducibility requires a computing environment, but it also requires code, well documented data, a description of how the data were collected and the analysis performed and a discussion of the results (a research paper essentially). The concept used to describe this complete research package is the _research compendium__. Marwick et al describe this idea in their paper titled <a href="https://peerj.com/preprints/3192/">Packaging data analytical work reproducibly using R (and friends)</a>.<br />
+The components of a complete research compendium can be quiet intricate: <code>.r</code> files with the analysis code, <code>.Rmd</code> files with the research paper, a <code>DESCRIPTION</code> or <code>.lock</code> file describing the environment, along with data in a <code>/data</code> subfolder. Your project folder might look something like this (lifted form the Marwick paper)</p>
+<p><img src="compendium.png"></p>
+<p>This is the gold standard for reproducibility. If you have a well structured, and well documented research compendium you have earned you black belt in scientific integrity. It may seem like an arduous process to set this up. But with the help of <a href="https://karthik.github.io/holepunch/">holepunch</a> it is a simple matter of running a few functions. You do need to take it upon yourself to write legible code, and to structure your project well with separate folders for data, code etc.</p>
+<p>The first and most important part of creating your compendium is the <code>DESCRIPTION</code> file. This file give all the important details of the project eg the author, the purpose of the project, the license and all the package dependencies needed to recreate the environment. Here is a simple example</p>
+<pre><code>
+Type: Compendium
+Package: South Africa Streamflow
+Title: Curve fitting to Paired Catchment Data
+Version: 1.0
+Authors@R: 
+    person(given = &quot;Glenn&quot;,
+           family = &quot;Moncrieff&quot;,
+           role = c(&quot;aut&quot;, &quot;cre&quot;),
+           email = &quot;glenn@saeon.ac.za&quot;,
+           comment = c(ORCID = &quot;0000-0002-0066-4371&quot;))
+Description: A re-analysis of the South African paired catchment data
+License: MIT
+Depends: 
+    betareg,
+    broom,
+    devtools,
+    dplyr,
+    ggplot2,
+    holepunch,
+    knitr,
+    readr,
+    renv,
+    rmarkdown,
+    usethis
+Encoding: UTF-8
+LazyData: true</code></pre>
+<h3 id="create-a-resaerch-compendium-with-holepunch">Create a resaerch compendium with holepunch</h3>
+<p>To create a <code>DESCIPTION</code> file with holepunch</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+write_compendium_description(
+  type = &quot;Compendium&quot;,
+  package = &quot;South Africa Streamflow&quot;,
+  description = &quot;A re-analysis of the South African paired catchment data&quot;,
+  version = &quot;1.0&quot;)</code></pre>
+</div>
+<p>Before running this though it can be useful to set some options regarding author details that will automatically be written to the <code>DESCIPTION</code> file. This will reduce the amount of manual editing we will need to do to this file</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+options(
+  usethis.full_name = &quot;Glenn Moncrieff&quot;,
+  usethis.description = list(`Authors@R` = &#39;person(&quot;Glenn&quot;, &quot;Moncrieff&quot;, email = &quot;glenn@saeon.ac.za&quot;, role = c(&quot;aut&quot;, &quot;cre&quot;), comment = c(ORCID = &quot;0000-0002-0066-4371&quot;))&#39;,License = &quot;MIT&quot;)
+  )</code></pre>
+</div>
+<p>Now we are ready to create a binder image if we like. Rather than create the <code>runtime.txt</code> and <code>install.R</code> files, we create something called a <code>Dockerfile</code>. The <code>Dockerfile</code> contains the full instructions on how to create the machine on which to run our code (the <code>runtime.txt</code> and <code>install.R</code> are actually just used by binder to create the <code>Dockerfile</code>). To create the <code>Dockerfile</code> with holepunch</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+write_dockerfile(maintainer = &quot;Glenn Moncrieff&quot;) </code></pre>
+</div>
+<p>Like before, lets add a nice badge that will launch the binder repo directly from our github repo</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+generate_badge() </code></pre>
+</div>
+<p>Now we are ready to push our complete research compendium to github. Now somebody interested in running our analysis can just click the <code>binder</code> badge and explore the data.</p>
+<p>At this point you might want to publish your research compendium to a site like <a href="https://figshare.com/">figshare</a> or <a href="https://zenodo.org/">zenodo</a>. You should archive a specific commit of your compendium that corresponds to a submitted or published manuscript. Your archive will have a DOI associated with it. This means you have a publicly available snapshot of the code that matches the paper. Code development can continue after the paper is published, but with a DOI that links to a specific commit, other users of the code can be confident that they have the version that matches the paper. A DOI also simplifies citation of the compendium, so you can cite it in your paper (and others can cite it in their work) using a persistent URL.</p>
+<p><img src="naas.jpg"></p>
+<h2 id="source-material">Source material:</h2>
+<p><a href="https://github.com/ropensci/rrrpkg">ropensci/rrrpkg</a><br />
+<a href="https://rstudio.github.io/renv/articles/renv.html">Introduction to renv</a></p>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

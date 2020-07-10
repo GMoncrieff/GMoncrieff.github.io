@@ -1,0 +1,57 @@
+[
+  {
+    "path": "posts/repro-r-1/",
+    "title": "Reproducible R part 1",
+    "description": "A gentle introduction to reproducible computing environments and research compendia",
+    "author": [],
+    "date": "2020-04-16",
+    "categories": [
+      "R tutorial",
+      "Reproducible science"
+    ],
+    "preview": "posts/repro-r-1/2020-04-16-reproducible-r-part-1_files/figure-html5/unnamed-chunk-9-1.png",
+    "last_modified": "2020-07-10T12:54:36+02:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/wiped-off-the-map/",
+    "title": "Wiped off the map: historical aerial photos document the communities Apartheid tried to erase",
+    "description": "Interactive maps to visualize and explore apartheid removals in three communities in Cape Town",
+    "author": [],
+    "date": "2019-09-24",
+    "categories": [
+      "Geospatial"
+    ],
+    "preview": "posts/wiped-off-the-map/wiped.png",
+    "last_modified": "2020-07-10T13:18:46+02:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/fynbos_id/",
+    "title": "Automated fynbos identification using iNaturalist and Deep Learning ",
+    "description": "Identifying Restios and Proteas using Tensorflow and transfer learning",
+    "author": [],
+    "date": "2018-03-10",
+    "categories": [
+      "R tutorial",
+      "Python tutorial",
+      "Neural Networks"
+    ],
+    "preview": "posts/fynbos_id/king-protea.jpg",
+    "last_modified": "2020-07-10T12:56:15+02:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/dc-ethiopia/",
+    "title": "Data carpentry Ethiopia",
+    "description": "Teaching R and data literacy in Addis Ababa",
+    "author": [],
+    "date": "2017-10-02",
+    "categories": [
+      "Teaching"
+    ],
+    "preview": {},
+    "last_modified": "2020-07-10T13:37:42+02:00",
+    "input_file": {}
+  }
+]
