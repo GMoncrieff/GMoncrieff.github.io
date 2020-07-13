@@ -9,7 +9,6 @@ categories:
 tags:
   - Apartheid
   - Aerial photos
-  - History
 editor_options: 
   chunk_output_type: console
 output:
