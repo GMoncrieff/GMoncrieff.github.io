@@ -1,6 +1,9 @@
 ---
 title: 'Automated fynbos identification using iNaturalist and Deep Learning '
-date: '2018-03-10'
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 03-10-2018
 description: |
   Identifying Restios and Proteas using Tensorflow and transfer learning
 tags:

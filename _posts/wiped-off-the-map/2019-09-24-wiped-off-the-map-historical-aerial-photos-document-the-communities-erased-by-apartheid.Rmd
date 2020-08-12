@@ -2,7 +2,10 @@
 title: 'Wiped off the map: historical aerial photos document the communities Apartheid tried to erase'
 description: |
   Interactive maps to visualize and explore apartheid removals in three communities in Cape Town 
-date: '2019-09-24'
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 09-24-2019
 slug: wiped-off-the-map-historical-aerial-photos-document-the-communities-apartheid-tried-to-eraze
 categories: 
   - Geospatial

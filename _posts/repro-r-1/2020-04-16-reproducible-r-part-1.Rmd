@@ -1,6 +1,9 @@
 ---
 title: 'Reproducible R part 1'
-date: '2020-04-16'
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 04-16-2020
 slug: reproducible-r-part-1
 description: |
   A gentle introduction to reproducible computing environments and research compendia

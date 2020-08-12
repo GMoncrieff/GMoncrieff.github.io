@@ -2,7 +2,10 @@
 title: Real-time detection of land cover change
 description: |
   Detecting vegetation clearing using Sentinel 2 time series
-date: '2018-10-31'
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 10-31-2018
 slug: near-real-time-detection-of-land-cover-change
 categories: 
   - Geospatial

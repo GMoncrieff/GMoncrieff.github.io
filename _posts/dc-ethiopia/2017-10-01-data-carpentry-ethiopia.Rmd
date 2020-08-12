@@ -2,7 +2,10 @@
 title: "Data carpentry Ethiopia"
 description: |
   Teaching R and data literacy in Addis Ababa
-date: '2017-10-02'
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 10-02-2017
 categories: Teaching
 tags:
 - Data carpentry

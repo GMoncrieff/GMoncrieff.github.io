@@ -1,49 +1,88 @@
 [
   {
+    "path": "posts/2020-08-12-advi-vs-mcmc/",
+    "title": "ADVI vs MCMC",
+    "description": "Comparing the performance of models fitted to vegetation postfire recovery data using ADVI and MCMC",
+    "author": [
+      {
+        "name": "Glenn Moncrieff",
+        "url": {}
+      }
+    ],
+    "date": "2020-08-11",
+    "categories": [
+      "Bayesian",
+      "Fire recovery"
+    ],
+    "preview": "posts/2020-08-12-advi-vs-mcmc/mcmc_vs_advi.png",
+    "last_modified": "2020-08-12T13:27:33+02:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/repro-r-1/",
     "title": "Reproducible R part 1",
     "description": "A gentle introduction to reproducible computing environments and research compendia",
-    "author": [],
+    "author": [
+      {
+        "name": "Glenn Moncrieff",
+        "url": {}
+      }
+    ],
     "date": "2020-04-16",
     "categories": [
       "R tutorial",
       "Reproducible science"
     ],
     "preview": "posts/repro-r-1/2020-04-16-reproducible-r-part-1_files/figure-html5/unnamed-chunk-9-1.png",
-    "last_modified": "2020-07-10T12:54:36+02:00",
+    "last_modified": "2020-08-12T13:30:56+02:00",
     "input_file": {}
   },
   {
     "path": "posts/wiped-off-the-map/",
     "title": "Wiped off the map: historical aerial photos document the communities Apartheid tried to erase",
     "description": "Interactive maps to visualize and explore apartheid removals in three communities in Cape Town",
-    "author": [],
+    "author": [
+      {
+        "name": "Glenn Moncrieff",
+        "url": {}
+      }
+    ],
     "date": "2019-09-24",
     "categories": [
       "Geospatial"
     ],
     "preview": "posts/wiped-off-the-map/wiped.png",
-    "last_modified": "2020-07-13T09:36:23+02:00",
+    "last_modified": "2020-08-12T13:30:29+02:00",
     "input_file": {}
   },
   {
     "path": "posts/thicket_change/",
     "title": "Real-time detection of land cover change",
     "description": "Detecting vegetation clearing using Sentinel 2 time series",
-    "author": [],
+    "author": [
+      {
+        "name": "Glenn Moncrieff",
+        "url": {}
+      }
+    ],
     "date": "2018-10-31",
     "categories": [
       "Geospatial"
     ],
     "preview": "posts/thicket_change/cover.png",
-    "last_modified": "2020-07-13T09:44:43+02:00",
+    "last_modified": "2020-08-12T13:30:41+02:00",
     "input_file": {}
   },
   {
     "path": "posts/fynbos_id/",
     "title": "Automated fynbos identification using iNaturalist and Deep Learning ",
     "description": "Identifying Restios and Proteas using Tensorflow and transfer learning",
-    "author": [],
+    "author": [
+      {
+        "name": "Glenn Moncrieff",
+        "url": {}
+      }
+    ],
     "date": "2018-03-10",
     "categories": [
       "R tutorial",
@@ -51,33 +90,43 @@
       "Neural Networks"
     ],
     "preview": "posts/fynbos_id/king-protea.jpg",
-    "last_modified": "2020-07-10T12:56:15+02:00",
+    "last_modified": "2020-08-12T13:31:10+02:00",
     "input_file": {}
   },
   {
     "path": "posts/emma/",
     "title": "EMMA wins UN data for climate action challenge",
     "description": "Predicting postfire reovery in the fynbos biome and monitoring anomalies",
-    "author": [],
+    "author": [
+      {
+        "name": "Glenn Moncrieff",
+        "url": {}
+      }
+    ],
     "date": "2017-11-15",
     "categories": [
       "Geospatial"
     ],
     "preview": "posts/emma/emma_cover.png",
-    "last_modified": "2020-07-13T09:47:05+02:00",
+    "last_modified": "2020-08-12T13:31:23+02:00",
     "input_file": {}
   },
   {
     "path": "posts/dc-ethiopia/",
     "title": "Data carpentry Ethiopia",
     "description": "Teaching R and data literacy in Addis Ababa",
-    "author": [],
+    "author": [
+      {
+        "name": "Glenn Moncrieff",
+        "url": {}
+      }
+    ],
     "date": "2017-10-02",
     "categories": [
       "Teaching"
     ],
     "preview": "posts/dc-ethiopia/dc_cover.png",
-    "last_modified": "2020-07-13T09:47:33+02:00",
+    "last_modified": "2020-08-12T13:31:16+02:00",
     "input_file": {}
   }
 ]

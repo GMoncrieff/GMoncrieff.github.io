@@ -1,7 +1,9 @@
 ---
 title: Accessing Planet Labs data API from R
-author: 'Glenn '
-date: '2018-02-22'
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 02-22-2018
 slug: accessing-planet-labs-data-api-from-r
 categories:
   - R tutorial
