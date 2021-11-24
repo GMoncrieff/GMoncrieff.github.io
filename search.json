@@ -5,14 +5,14 @@
       "title": "About Glenn",
       "author": [],
       "contents": "\n\n.aligncenter {\n    text-align: center;\n}\n\n\nMy name is Glenn Moncrieff, I live in beautiful Cape Town, South Africa. I pass my time trying to think of smart ways of using data to solve problems. My favourite problems to solve are those that involve environmental protection or social justice. My most favourite problems to solve are those that involve the flora of South Africa, particulary the unique and spectacular fynbos biome. I divide my energy among a few challanges:\nData Science\nBuilding skills in R and Python. I mostly work with geospatial data, machine learning and Bayesian statistics, and try to stay on top of the software stack used for these tasks.\nEcology\nSpending time staring at plants in the field to understand their innermost thoughts. My research is focused on linking plant ecology to the carbon and water cycles in Africa and the fynbos biome in particular. Often I find remote sensing and ecological models to be the tools best suited to these tasks. Find out more at SAEON fynbos node or visit my Google Scholar to see a list of my publications\nTeaching\nSpreading the gospel of open source software, open science, and data literacy. I believe in their ability to democratize research and empower youth to acquire in-demand computing skills without the financial and social barriers imposed by traditional higher education. I supervise university students, design data science curricula, and teach data literacy to students across Africa as a Data Carpentry Instructor. Find out more at Software Carpentry\nMountains/Oceans\nWhen all the sciencing gets too much I escape to the mountains and oceans to surf, hike and rock climb. I try to share this passion with at-risk youth in Cape Town through a non-profit climbing club. We take youth climbing at the local gym, on trips to outdoor climbing spots and connect them with the local climbing community. Find out more at DreamHigher\nContact\nIf you would like to get hold of me, don’t hesitate to send me an email at:\nglenn@saeon.ac.za\n\n\nReuse\n\n\nText and figures are licensed under Creative Commons Attribution CC BY 4.0\n\n\n\n\n\n",
-      "last_modified": "2021-11-24T12:13:34+02:00"
+      "last_modified": "2021-11-24T13:45:59+02:00"
     },
     {
       "path": "index.html",
       "title": "Latest posts",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-11-24T12:13:35+02:00"
+      "last_modified": "2021-11-24T13:45:59+02:00"
     }
   ],
   "collections": ["posts/posts.json"]

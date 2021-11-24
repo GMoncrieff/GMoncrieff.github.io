@@ -137,7 +137,7 @@ gcloud functions deploy ee-function \
 
 If all goes well our function should deploy. 
 
-### Setting a trigger and scheule
+### Setting a trigger and schedule
 
 We can view the function and it's details on the Cloud Functions tab of our GCP web console. When we deployed the function we set a trigger that will cause the function to execute `--tigger-topic=ee_topic`. This created a GCP Pub/Sub topic called `ee_topic`. [Pub/Sub](https://cloud.google.com/pubsub) is GCP's messaging service which integrates different components, some of which publish messages, and others that consume/subscribe to these messages. Our function consumes messages published to `ee_topic`, which will trigger it's execution.  
 
