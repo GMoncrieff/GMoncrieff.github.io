@@ -87,635 +87,39 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>Glenn Moncrieff: About Glenn</title>
+  <title>Automate your Google Earth Engine analyses</title>
+  
+  <meta property="description" itemprop="description" content="Using Google Cloud Platform to run Earth Engine scripts on an predefined schedule"/>
   
   
-  
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-11-27"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-11-27"/>
+  <meta name="article:author" content="Glenn Moncrieff"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Glenn Moncrieff: About Glenn"/>
+  <meta property="og:title" content="Automate your Google Earth Engine analyses"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Using Google Cloud Platform to run Earth Engine scripts on an predefined schedule"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="Glenn Moncrieff"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Glenn Moncrieff: About Glenn"/>
+  <meta property="twitter:title" content="Automate your Google Earth Engine analyses"/>
+  <meta property="twitter:description" content="Using Google Cloud Platform to run Earth Engine scripts on an predefined schedule"/>
   
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["About Glenn"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["Automate your Google Earth Engine analyses"]},{"type":"character","attributes":{},"value":["Using Google Cloud Platform to run Earth Engine scripts on an predefined schedule\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Glenn Moncrieff"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["11-27-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["clock.jpeg"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["clock.jpeg","sheduled-earth-engine_files/anchor-4.2.2/anchor.min.js","sheduled-earth-engine_files/bowser-1.9.3/bowser.min.js","sheduled-earth-engine_files/distill-2.2.21/template.v2.js","sheduled-earth-engine_files/jquery-1.11.3/jquery.min.js","sheduled-earth-engine_files/jquery-3.6.0/jquery-3.6.0.js","sheduled-earth-engine_files/jquery-3.6.0/jquery-3.6.0.min.js","sheduled-earth-engine_files/jquery-3.6.0/jquery-3.6.0.min.map","sheduled-earth-engine_files/popper-2.6.0/popper.min.js","sheduled-earth-engine_files/tippy-6.2.7/tippy-bundle.umd.min.js","sheduled-earth-engine_files/tippy-6.2.7/tippy-light-border.css","sheduled-earth-engine_files/tippy-6.2.7/tippy.css","sheduled-earth-engine_files/tippy-6.2.7/tippy.umd.min.js","sheduled-earth-engine_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
   <!--radix_placeholder_navigation_in_header-->
-  <meta name="distill:offset" content=""/>
-  
-  <script type="application/javascript">
-  
-    window.headroom_prevent_pin = false;
-  
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-  
-      // initialize headroom for banner
-      var header = $('header').get(0);
-      var headerHeight = header.offsetHeight;
-      var headroom = new Headroom(header, {
-        tolerance: 5,
-        onPin : function() {
-          if (window.headroom_prevent_pin) {
-            window.headroom_prevent_pin = false;
-            headroom.unpin();
-          }
-        }
-      });
-      headroom.init();
-      if(window.location.hash)
-        headroom.unpin();
-      $(header).addClass('headroom--transition');
-  
-      // offset scroll location for banner on hash change
-      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
-      window.addEventListener("hashchange", function(event) {
-        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
-      });
-  
-      // responsive menu
-      $('.distill-site-header').each(function(i, val) {
-        var topnav = $(this);
-        var toggle = topnav.find('.nav-toggle');
-        toggle.on('click', function() {
-          topnav.toggleClass('responsive');
-        });
-      });
-  
-      // nav dropdowns
-      $('.nav-dropbtn').click(function(e) {
-        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
-        $(this).parent().siblings('.nav-dropdown')
-           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $("body").click(function(e){
-        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $(".nav-dropdown").click(function(e){
-        e.stopPropagation();
-      });
-    });
-  </script>
-  
-  <style type="text/css">
-  
-  /* Theme (user-documented overrideables for nav appearance) */
-  
-  .distill-site-nav {
-    color: rgba(255, 255, 255, 0.8);
-    background-color: #0F2E3D;
-    font-size: 15px;
-    font-weight: 300;
-  }
-  
-  .distill-site-nav a {
-    color: inherit;
-    text-decoration: none;
-  }
-  
-  .distill-site-nav a:hover {
-    color: white;
-  }
-  
-  @media print {
-    .distill-site-nav {
-      display: none;
-    }
-  }
-  
-  .distill-site-header {
-  
-  }
-  
-  .distill-site-footer {
-  
-  }
-  
-  
-  /* Site Header */
-  
-  .distill-site-header {
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 3;
-  }
-  
-  .distill-site-header .nav-left {
-    display: inline-block;
-    margin-left: 8px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header .nav-left {
-      margin-left: 0;
-    }
-  }
-  
-  
-  .distill-site-header .nav-right {
-    float: right;
-    margin-right: 8px;
-  }
-  
-  .distill-site-header a,
-  .distill-site-header .title {
-    display: inline-block;
-    text-align: center;
-    padding: 14px 10px 14px 10px;
-  }
-  
-  .distill-site-header .title {
-    font-size: 18px;
-    min-width: 150px;
-  }
-  
-  .distill-site-header .logo {
-    padding: 0;
-  }
-  
-  .distill-site-header .logo img {
-    display: none;
-    max-height: 20px;
-    width: auto;
-    margin-bottom: -4px;
-  }
-  
-  .distill-site-header .nav-image img {
-    max-height: 18px;
-    width: auto;
-    display: inline-block;
-    margin-bottom: -3px;
-  }
-  
-  
-  
-  @media screen and (min-width: 1000px) {
-    .distill-site-header .logo img {
-      display: inline-block;
-    }
-    .distill-site-header .nav-left {
-      margin-left: 20px;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 20px;
-    }
-    .distill-site-header .title {
-      padding-left: 12px;
-    }
-  }
-  
-  
-  .distill-site-header .nav-toggle {
-    display: none;
-  }
-  
-  .nav-dropdown {
-    display: inline-block;
-    position: relative;
-  }
-  
-  .nav-dropdown .nav-dropbtn {
-    border: none;
-    outline: none;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 16px 10px;
-    background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-    margin-top: 1px;
-    z-index: 2;
-  }
-  
-  .nav-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    margin-top: 2px;
-    white-space: nowrap;
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-  
-  .nav-dropdown-content hr {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .nav-dropdown-active {
-    display: block;
-  }
-  
-  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
-    color: black;
-    padding: 6px 24px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .nav-dropdown-content .nav-dropdown-header {
-    display: block;
-    padding: 5px 24px;
-    padding-bottom: 0;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #999999;
-    white-space: nowrap;
-  }
-  
-  .nav-dropdown:hover .nav-dropbtn {
-    color: white;
-  }
-  
-  .nav-dropdown-content a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  .nav-right .nav-dropdown-content {
-    margin-left: -45%;
-    right: 0;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
-    .distill-site-header a.nav-toggle {
-      float: right;
-      display: block;
-    }
-    .distill-site-header .title {
-      margin-left: 0;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 0;
-    }
-    .distill-site-header {
-      overflow: hidden;
-    }
-    .nav-right .nav-dropdown-content {
-      margin-left: 0;
-    }
-  }
-  
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-header.responsive {position: relative; min-height: 500px; }
-    .distill-site-header.responsive a.nav-toggle {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .distill-site-header.responsive a,
-    .distill-site-header.responsive .nav-dropdown {
-      display: block;
-      text-align: left;
-    }
-    .distill-site-header.responsive .nav-left,
-    .distill-site-header.responsive .nav-right {
-      width: 100%;
-    }
-    .distill-site-header.responsive .nav-dropdown {float: none;}
-    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
-    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  }
-  
-  /* Site Footer */
-  
-  .distill-site-footer {
-    width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    z-index: 3;
-    margin-top: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    text-align: center;
-  }
-  
-  /* Headroom */
-  
-  d-title {
-    padding-top: 6rem;
-  }
-  
-  @media print {
-    d-title {
-      padding-top: 4rem;
-    }
-  }
-  
-  .headroom {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .headroom--transition {
-    transition: all .4s ease-in-out;
-  }
-  
-  .headroom--unpinned {
-    top: -100px;
-  }
-  
-  .headroom--pinned {
-    top: 0;
-  }
-  
-  /* adjust viewport for navbar height */
-  /* helps vertically center bootstrap (non-distill) content */
-  .min-vh-100 {
-    min-height: calc(100vh - 100px) !important;
-  }
-  
-  </style>
-  
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
-  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
-  <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
-  <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
-  
-  <script type="application/javascript">
-  
-  function getMeta(metaName) {
-    var metas = document.getElementsByTagName('meta');
-    for (let i = 0; i < metas.length; i++) {
-      if (metas[i].getAttribute('name') === metaName) {
-        return metas[i].getAttribute('content');
-      }
-    }
-    return '';
-  }
-  
-  function offsetURL(url) {
-    var offset = getMeta('distill:offset');
-    return offset ? offset + '/' + url : url;
-  }
-  
-  function createFuseIndex() {
-  
-    // create fuse index
-    var options = {
-      keys: [
-        { name: 'title', weight: 20 },
-        { name: 'categories', weight: 15 },
-        { name: 'description', weight: 10 },
-        { name: 'contents', weight: 5 },
-      ],
-      ignoreLocation: true,
-      threshold: 0
-    };
-    var fuse = new window.Fuse([], options);
-  
-    // fetch the main search.json
-    return fetch(offsetURL('search.json'))
-      .then(function(response) {
-        if (response.status == 200) {
-          return response.json().then(function(json) {
-            // index main articles
-            json.articles.forEach(function(article) {
-              fuse.add(article);
-            });
-            // download collections and index their articles
-            return Promise.all(json.collections.map(function(collection) {
-              return fetch(offsetURL(collection)).then(function(response) {
-                if (response.status === 200) {
-                  return response.json().then(function(articles) {
-                    articles.forEach(function(article) {
-                      fuse.add(article);
-                    });
-                  })
-                } else {
-                  return Promise.reject(
-                    new Error('Unexpected status from search index request: ' +
-                              response.status)
-                  );
-                }
-              });
-            })).then(function() {
-              return fuse;
-            });
-          });
-  
-        } else {
-          return Promise.reject(
-            new Error('Unexpected status from search index request: ' +
-                        response.status)
-          );
-        }
-      });
-  }
-  
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-  
-    // get search element (bail if we don't have one)
-    var searchEl = window.document.getElementById('distill-search');
-    if (!searchEl)
-      return;
-  
-    createFuseIndex()
-      .then(function(fuse) {
-  
-        // make search box visible
-        searchEl.classList.remove('hidden');
-  
-        // initialize autocomplete
-        var options = {
-          autoselect: true,
-          hint: false,
-          minLength: 2,
-        };
-        window.autocomplete(searchEl, options, [{
-          source: function(query, callback) {
-            const searchOptions = {
-              isCaseSensitive: false,
-              shouldSort: true,
-              minMatchCharLength: 2,
-              limit: 10,
-            };
-            var results = fuse.search(query, searchOptions);
-            callback(results
-              .map(function(result) { return result.item; })
-            );
-          },
-          templates: {
-            suggestion: function(suggestion) {
-              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
-                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
-                : '';
-              var html = `
-                <div class="search-item">
-                  <h3>${suggestion.title}</h3>
-                  <div class="search-item-description">
-                    ${suggestion.description || ''}
-                  </div>
-                  <div class="search-item-preview">
-                    ${img}
-                  </div>
-                </div>
-              `;
-              return html;
-            }
-          }
-        }]).on('autocomplete:selected', function(event, suggestion) {
-          window.location.href = offsetURL(suggestion.path);
-        });
-        // remove inline display style on autocompleter (we want to
-        // manage responsive display via css)
-        $('.algolia-autocomplete').css("display", "");
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  
-  });
-  
-  </script>
-  
-  <style type="text/css">
-  
-  .nav-search {
-    font-size: x-small;
-  }
-  
-  /* Algolioa Autocomplete */
-  
-  .algolia-autocomplete {
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: sub;
-    background-color: white;
-    color: black;
-    padding: 6px;
-    padding-top: 8px;
-    padding-bottom: 0;
-    border-radius: 6px;
-    border: 1px #0F2E3D solid;
-    width: 180px;
-  }
-  
-  
-  @media screen and (max-width: 768px) {
-    .distill-site-nav .algolia-autocomplete {
-      display: none;
-      visibility: hidden;
-    }
-    .distill-site-nav.responsive .algolia-autocomplete {
-      display: inline-block;
-      visibility: visible;
-    }
-    .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
-      margin-left: 0;
-      width: 400px;
-      max-height: 400px;
-    }
-  }
-  
-  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
-    width: 90%;
-    outline: none;
-    border: none;
-  }
-  
-  .algolia-autocomplete .aa-hint {
-    color: #999;
-  }
-  .algolia-autocomplete .aa-dropdown-menu {
-    width: 550px;
-    max-height: 70vh;
-    overflow-x: visible;
-    overflow-y: scroll;
-    padding: 5px;
-    margin-top: 3px;
-    margin-left: -150px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #999;
-    border-top: none;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-    cursor: pointer;
-    padding: 5px 4px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
-    border-bottom: none;
-    margin-bottom: 2px;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
-    overflow: hidden;
-    font-size: 0.8em;
-    line-height: 1.4em;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
-    font-size: 1rem;
-    margin-block-start: 0;
-    margin-block-end: 5px;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
-    display: inline-block;
-    overflow: hidden;
-    height: 2.8em;
-    width: 80%;
-    margin-right: 4%;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
-    display: inline-block;
-    width: 15%;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
-    height: 3em;
-    width: auto;
-    display: none;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
-    display: initial;
-  }
-  
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-    background-color: #eee;
-  }
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-    font-weight: bold;
-    font-style: normal;
-  }
-  
-  </style>
-  
-  
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
   
@@ -2034,28 +1438,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
   
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
-  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
-  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
-  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
-  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
-  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
-  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <script src="sheduled-earth-engine_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="sheduled-earth-engine_files/popper-2.6.0/popper.min.js"></script>
+  <link href="sheduled-earth-engine_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="sheduled-earth-engine_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="sheduled-earth-engine_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="sheduled-earth-engine_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="sheduled-earth-engine_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="sheduled-earth-engine_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="sheduled-earth-engine_files/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
-  <style type="text/css">
-  @import url("https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css");
-  
-  .distill-site-nav {
-    color: rgba(255, 255, 255, 1);
-    background-color: #4a4a4a;
-    font-size: 15px;
-    font-weight: 300;
-  }
-  </style>
   <!--/radix_placeholder_site_in_header-->
 
-  <link rel="stylesheet" href="styles.css" type="text/css"/>
 
 </head>
 
@@ -2064,75 +1458,141 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"About Glenn","authors":[]}
+{"title":"Automate your Google Earth Engine analyses","description":"Using Google Cloud Platform to run Earth Engine scripts on an predefined schedule","authors":[{"author":"Glenn Moncrieff","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-11-27T00:00:00.000+02:00","citationText":"Moncrieff, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
 <!--radix_placeholder_navigation_before_body-->
-<header class="header header--fixed" role="banner">
-<nav class="distill-site-nav distill-site-header">
-<div class="nav-left">
-<a href="index.html" class="title">Glenn Moncrieff</a>
-<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
-</div>
-<div class="nav-right">
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="https://github.com/GMoncrieff">
-<i class="fab fa-github" aria-hidden="true"></i>
-</a>
-<a href="https://twitter.com/Glennwithtwons">
-<i class="fab fa-twitter" aria-hidden="true"></i>
-</a>
-<a href="https://scholar.google.com/citations?user=_FFdaCUAAAAJ">
-<i class="fa ai ai-google-scholar" aria-hidden="true"></i>
-</a>
-<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
-</div>
-</nav>
-</header>
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>About Glenn</h1>
+<h1>Automate your Google Earth Engine analyses</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-
+<p><p>Using Google Cloud Platform to run Earth Engine scripts on an predefined schedule</p></p>
 </div>
 
+<div class="d-byline">
+  Glenn Moncrieff true 
+  
+<br/>11-27-2021
+</div>
 
 <div class="d-article">
-<style>
-.aligncenter {
-    text-align: center;
-}
-</style>
-<p class="aligncenter">
-<img src="avatar_small.png" style="width:200px">
-</p>
-<p>My name is Glenn Moncrieff, I live in beautiful Cape Town, South Africa. I pass my time trying to think of smart ways of using data to solve problems. My favourite problems to solve are those that involve environmental protection or social justice. My most favourite problems to solve are those that involve the flora of South Africa, particulary the unique and spectacular fynbos biome. I divide my energy among a few challanges:</p>
-<h2 id="data-science">Data Science</h2>
-<p>Building skills in R and Python. I mostly work with geospatial data, machine learning and Bayesian statistics, and try to stay on top of the software stack used for these tasks.</p>
-<h2 id="ecology">Ecology</h2>
-<p>Spending time staring at plants in the field to understand their innermost thoughts. My research is focused on linking plant ecology to the carbon and water cycles in Africa and the fynbos biome in particular. Often I find remote sensing and ecological models to be the tools best suited to these tasks. Find out more at <a href="https://fynbos.saeon.ac.za/">SAEON fynbos node</a> or visit my <a href="https://scholar.google.co.za/citations?user=_FFdaCUAAAAJ&amp;hl=en&amp;authuser=1">Google Scholar</a> to see a list of my publications</p>
-<h2 id="teaching">Teaching</h2>
-<p>Spreading the gospel of open source software, open science, and data literacy. I believe in their ability to democratize research and empower youth to acquire in-demand computing skills without the financial and social barriers imposed by traditional higher education. I supervise university students, design data science curricula, and teach data literacy to students across Africa as a Data Carpentry Instructor. Find out more at <a href="https://carpentries.org/">Software Carpentry</a></p>
-<h2 id="mountainsoceans">Mountains/Oceans</h2>
-<p>When all the sciencing gets too much I escape to the mountains and oceans to surf, hike and rock climb. I try to share this passion with at-risk youth in Cape Town through a non-profit climbing club. We take youth climbing at the local gym, on trips to outdoor climbing spots and connect them with the local climbing community. Find out more at <a href="http://www.dreamhigher.co.za">DreamHigher</a></p>
-<h3 id="contact">Contact</h3>
-<p>If you would like to get hold of me, don’t hesitate to send me an email at:</p>
-<p><a href="mailto:glenn@saeon.ac.za" class="email">glenn@saeon.ac.za</a></p>
-<div class="appendix-bottom">
-<h3 id="reuse">
-Reuse
-</h3>
-<p>
-Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-</p>
+<p><a href="https://earthengine.google.com/">Google Earth Engine</a> (GEE) is a great tool for analyzing earth observation data and producing new insights into environmental change at very large scales. An issue that I have bumped into more than once after producing a neat new analysis is that the results soon become stale as new earth observation data become available. For example, if I produce a fresh new model to map recent fires in my country using Sentinel 2 data, within a few days new images will be come available and my fire map will be out of date. Another instance in which it might be useful to schedule our analyses to run automatically and save output is when we have a user facing Earth Engine app that runs some analyses on data in the GEE catalog. If our calculations are complicated it can take a long time to render the results for people using the app. But if the data is precalculated, the visualization will load in no time.</p>
+<p>Until now in order to precalculate updates results and save them I had to manually rerun my scripts and export the results. In this short post I will explain how to setup a scheduler running in Google Cloud Platform (GCP) that will fire off our analysis at the frequency of our choosing and save the results to an Earth Engine asset. Of course we could do this by setting up a scheduler on our own computer using the <code>cron</code> command-line utility, but it costs nothing - $0 - to run on this GCP.</p>
+<h3 id="setup">Setup</h3>
+<p>Before we start lets create a new folder in which we will save all our code</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">mkdir</span> ee_function</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="bu">cd</span> ee_function</span></code></pre></div>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>As a prerequisite you will need a GCP account. If you don’t have one you can register <a href="https://cloud.google.com/free">here</a> and you will start out with $300 of free credits.<br />
+Most of what we are going to do here using the command-line can also be done via the pointy-clicky method on the GCP web console, but for the sake of simplicity and reproducibility we will use GCP <code>gcloud</code> commands for everything. Instructions for installing <code>gcloud</code> can be found <a href="https://cloud.google.com/sdk/docs/install">here</a>. Once installed you will need to setup our installation using</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">gcloud</span> init</span></code></pre></div>
+</div>
+<p>You will need to provide your login details, a default project, and a default zone.</p>
+<p>Once setup we need to activate the various GCP APIs that we will be using. This is set project-wide, so if we are using an existing project some of these may already be activated. The GCP APIs we will be using are Pub/Sub, Cloud Functions, Cloud Scheduler, and Earth Engine. The following command will activate all these APIs</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">gcloud</span> services enable pubsub.googleapis.com</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="ex">gcloud</span> services enable cloudfunctions.googleapis.com</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="ex">gcloud</span> services enable earthengine.googleapis.com </span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="ex">gcloud</span> services enable cloudscheduler.googleapis.com</span></code></pre></div>
+</div>
+<p>Naturally, to use Earth Engine you need to <a href="https://earthengine.google.com/signup/">sign-up</a>. In order to allow an application (rather than a human end-user) to access Earth Engine through our account, we need to setup a service account for our GCP project and register this on our Earth Engine account (more info <a href="https://developers.google.com/earth-engine/guides/service_account">here</a>). The first step is to create the service account</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">gcloud</span> iam service-accounts create ee-function \</span>
+<span id="cb4-2"><a href="#cb4-2"></a>--description=<span class="st">&quot;testing_ee_function&quot;</span> \</span>
+<span id="cb4-3"><a href="#cb4-3"></a>--display-name=<span class="st">&quot;test_ee_function&quot;</span></span></code></pre></div>
+</div>
+<p>Next we create a key for the service account and download it locally as a json file.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">gcloud</span> iam service-accounts keys create sa-private-key.json \</span>
+<span id="cb5-2"><a href="#cb5-2"></a>--iam-account=ee-function@ee-vegetation-gee4geo.iam.gserviceaccount.com</span></code></pre></div>
+</div>
+<p>The last registration step is to register the service account we used above for Earth Engine access <a href="https://signup.earthengine.google.com/#!/service_accounts">here</a>. In this example our service account address is <code>ee-function@ee-vegetation-gee4geo.iam.gserviceaccount.com</code> i.e. <code>SERVICEACCOUNT@PROJECTNAME.iam.gserviceaccount.com</code></p>
+<h3 id="earth-engine-cloud-function">Earth Engine Cloud Function</h3>
+<p>Now we get to the meat and potatoes - preparing our Earth Engine script. Our script will be deployed as a single function by <a href="https://cloud.google.com/functions">Google Cloud Functions</a>. We will therefore wrap our Earth Engine code inside a python function. The framework of our .py file will look like</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> package</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">def</span> main(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  value <span class="op">=</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="cf">return</span> value</span></code></pre></div>
+</div>
+<p>We simply need to import the packages our function requires and place our Earth Engine script inside the function <code>main</code>. The actual content of our Earth Engine script is not important in this example. For demonstration purposes here all we will do is calculate the median reflectance of all Sentinel 2 images in the previous 30 days within a set region. An important step here is determining today’s date using the python <code>datetime</code> package and converting this to an Earth Engine date. This allows us to modify the date over which our analysis is done based on the date on which it is run by the scheduler. At the end of the script we set the <code>time_start</code> property of the image to the date on which the script was called and export it, adding to an existing ImageCollection.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> ee</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="im">import</span> datetime</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">def</span> main(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="co">#initialize earth engine using json key for service account</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>    service_account <span class="op">=</span> <span class="st">&#39;ee-function@ee-vegetation-gee4geo.iam.gserviceaccount.com&#39;</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    credentials <span class="op">=</span> ee.ServiceAccountCredentials(service_account, <span class="st">&#39;sa-private-key.json&#39;</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>    ee.Initialize(credentials)</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="co">#our AOI</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>    geom <span class="op">=</span> ee.Geometry.Polygon([[[<span class="fl">18.430231010200725</span>, <span class="fl">-34.051410739766304</span>],[<span class="fl">18.430231010200725</span>, <span class="op">\</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>    <span class="fl">-34.07871402933222</span>],[<span class="fl">18.4563235394976</span>, <span class="fl">-34.07871402933222</span>],[<span class="fl">18.4563235394976</span>, <span class="fl">-34.051410739766304</span>]]])</span>
+<span id="cb7-14"><a href="#cb7-14"></a></span>
+<span id="cb7-15"><a href="#cb7-15"></a>  <span class="co">#get current date and convert to ee.Date</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a>    end_date_str <span class="op">=</span> datetime.datetime.today().strftime(<span class="st">&#39;%Y-%m-</span><span class="sc">%d</span><span class="st">&#39;</span>)</span>
+<span id="cb7-17"><a href="#cb7-17"></a>    end_date <span class="op">=</span> ee.Date(end_date_str)</span>
+<span id="cb7-18"><a href="#cb7-18"></a>    start_date <span class="op">=</span> end_date.advance(<span class="op">-</span><span class="dv">1</span>,<span class="st">&#39;month&#39;</span>)</span>
+<span id="cb7-19"><a href="#cb7-19"></a>  </span>
+<span id="cb7-20"><a href="#cb7-20"></a>  <span class="co">#calculate median Sentinel 2 reflectance</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a>    im <span class="op">=</span> ee.ImageCollection(<span class="st">&quot;COPERNICUS/S2_SR&quot;</span>)<span class="op">\</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a>    .filterBounds(geom)<span class="op">\</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a>    .filterDate(start_date,end_date)<span class="op">\</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a>    .median()</span>
+<span id="cb7-25"><a href="#cb7-25"></a>  </span>
+<span id="cb7-26"><a href="#cb7-26"></a>  <span class="co">#record the date by setting it as a property</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a>    im <span class="op">=</span> im.<span class="bu">set</span>({<span class="st">&#39;system:time_start&#39;</span>:end_date})</span>
+<span id="cb7-28"><a href="#cb7-28"></a></span>
+<span id="cb7-29"><a href="#cb7-29"></a>  <span class="co">#export by adding to an existing EE imageCollection</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a>    folder <span class="op">=</span><span class="st">&#39;projects/ee-vegetation-gee4geo/assets/test2/&#39;</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a>    filename <span class="op">=</span> folder <span class="op">+</span> <span class="st">&#39;exampleExport_&#39;</span><span class="op">+</span> end_date_str</span>
+<span id="cb7-32"><a href="#cb7-32"></a></span>
+<span id="cb7-33"><a href="#cb7-33"></a>    task <span class="op">=</span> ee.batch.Export.image.toAsset(image<span class="op">=</span>im,   </span>
+<span id="cb7-34"><a href="#cb7-34"></a>                                         region<span class="op">=</span>geom, </span>
+<span id="cb7-35"><a href="#cb7-35"></a>                                         assetId<span class="op">=</span>filename, </span>
+<span id="cb7-36"><a href="#cb7-36"></a>                                         scale<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb7-37"><a href="#cb7-37"></a></span>
+<span id="cb7-38"><a href="#cb7-38"></a>    task.start()</span>
+<span id="cb7-39"><a href="#cb7-39"></a></span>
+<span id="cb7-40"><a href="#cb7-40"></a>    <span class="cf">return</span> task</span></code></pre></div>
+</div>
+<p>We need to create a <code>requirements.txt</code> file listing the packages our function requires. For this example this is just the <code>earthengine-api</code>, as <code>datetime</code> is installed by default in Python 3.7, and the file contents will simply be</p>
+<p><code>earthengine-api</code></p>
+<p>Now we are ready to upload the function to GCP and deploy using Cloud Functions. Double check that your current working directory contains the following files only:<br />
+our python function: <code>main.py</code><br />
+the requirements: <code>requirements.txt</code><br />
+the json key: <code>sa-private-key.json</code></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">gcloud</span> functions deploy ee-function \</span>
+<span id="cb8-2"><a href="#cb8-2"></a>--runtime=python37 \</span>
+<span id="cb8-3"><a href="#cb8-3"></a>--entry-point=main \</span>
+<span id="cb8-4"><a href="#cb8-4"></a>--trigger-topic=ee_topic</span></code></pre></div>
+</div>
+<p>If all goes well our function should deploy.</p>
+<h3 id="setting-a-trigger-and-scheule">Setting a trigger and scheule</h3>
+<p>We can view the function and it’s details on the Cloud Functions tab of our GCP web console. When we deployed the function we set a trigger that will cause the function to execute <code>--tigger-topic=ee_topic</code>. This created a GCP Pub/Sub topic called <code>ee_topic</code>. <a href="https://cloud.google.com/pubsub">Pub/Sub</a> is GCP’s messaging service which integrates different components, some of which publish messages, and others that consume/subscribe to these messages. Our function consumes messages published to <code>ee_topic</code>, which will trigger it’s execution.</p>
+<p>All we need to do now is publish messages to <code>ee_topic</code> and this will trigger our function. There are a number of ways to do this in GCP. For example we could trigger our function through an HTTP request, or when a new object is added to a Cloud Storage bucket (this is a nice way of linking multiple scripts that depend on the output of each other). Here we will use a scheduler which publishes messages to <code>ee_topic</code> and triggers our function on a regular predefined schedule.</p>
+<p>To do this we will use <a href="https://cloud.google.com/scheduler">Cloud Scheduler</a>. The argument <code>--schedule</code> determines how often to publish to the <code>ee_job</code> topic, and we use the well known <code>cron</code> syntax. <a href="https://crontab.guru/">Crontab</a> is a nice website which helps convert your schedule into <code>cron</code> syntax if you are not familiar with it. Here we simply publish once a month</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="ex">gcloud</span> scheduler jobs create pubsub ee_job \</span>
+<span id="cb9-2"><a href="#cb9-2"></a>--schedule=<span class="st">&quot;0 0 1 * *&quot;</span> \</span>
+<span id="cb9-3"><a href="#cb9-3"></a>--topic=ee_topic \</span>
+<span id="cb9-4"><a href="#cb9-4"></a>--message-body=<span class="st">&quot;run_ee&quot;</span></span></code></pre></div>
+</div>
+<h3 id="thanks-for-stopping-by">Thanks for stopping by</h3>
+<p>All done! Our function will now execute once a month every month for eternity. We can also manually trigger the execution of our function by visiting the Cloud Scheduler tab on our GCP cloud console. The best thing about the entire workflow? It is completely free. Earth Engine is free, Cloud Functions are free (up to 2 million invocations / month), Pub/Sub is free (up to 10 Gb / month) and Cloud Scheduler is free (up to 3 independent schedules per month). We are very unlikely to exceed these limits when using these service to automate Earth Engine analyses.</p>
+<p>In summary we have put together a workflow for deploying any Earth Engine script to run on a schedule. There are many use cases for this, particularly when the end-use of our analysis is a product or insight that is needed for up-to-date decision making, or when we want to ensure that any downstream task that uses our output is making use of the most recent data.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

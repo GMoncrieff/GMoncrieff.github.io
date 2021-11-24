@@ -1,0 +1,162 @@
+---
+title: "Automate your Google Earth Engine analyses"
+description: |
+  Using Google Cloud Platform to run Earth Engine scripts on an predefined schedule
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 11-27-2021
+output:
+  distill::distill_article:
+    self_contained: false
+preview: clock.jpeg
+---
+
+[Google Earth Engine](https://earthengine.google.com/) (GEE) is a great tool for analyzing earth observation data and producing new insights into environmental change at very large scales. An issue that I have bumped into more than  once after producing a neat new analysis is that the results soon become stale as new earth observation data become available. For example, if I produce a fresh new model to map recent fires in my country using Sentinel 2 data, within a few days new images will be come available and my fire map will be out of date. Another instance in which it might be useful to schedule our analyses to run automatically and save output is when we have a user facing Earth Engine app that runs some analyses on data in the GEE catalog. If our calculations are complicated it can take a long time to render the results for people using the app. But if the data is precalculated, the visualization will load in no time.
+
+Until now in order to precalculate updates results and save them I had to manually rerun my scripts and export the results. In this short post I will explain how to setup a scheduler running in Google Cloud Platform (GCP) that will fire off our analysis at the frequency of our choosing and save the results to an Earth Engine asset. Of course we could do this by setting up a scheduler on our own computer using the `cron` command-line utility, but it costs nothing - $0 - to run on this GCP.
+
+### Setup
+
+Before we start lets create a new folder in which we will save all our code
+
+```{bash mk, eval=FALSE, echo=T}
+mkdir ee_function
+cd ee_function
+```
+
+As a prerequisite you will need a GCP account. If you don't have one you can register [here](https://cloud.google.com/free) and you will start out with $300 of free credits.   
+Most of what we are going to do here using the command-line can also be done via the pointy-clicky method on the GCP web console, but for the sake of simplicity and reproducibility we will use GCP `gcloud` commands for everything. Instructions for installing `gcloud` can be found [here](https://cloud.google.com/sdk/docs/install). Once installed you will need to setup our installation using
+
+```{bash init, eval=FALSE, echo=T}
+gcloud init
+```
+
+You will need to provide your login details, a default project, and a default zone.  
+
+Once setup we need to activate the various GCP APIs that we will be using. This is set project-wide, so if we are using an existing project some of these may already be activated. The GCP APIs we will be using are Pub/Sub, Cloud Functions, Cloud Scheduler, and Earth Engine. The following command will activate all these APIs
+
+```{bash enable, eval=FALSE, echo=T}
+gcloud services enable pubsub.googleapis.com
+gcloud services enable cloudfunctions.googleapis.com
+gcloud services enable earthengine.googleapis.com 
+gcloud services enable cloudscheduler.googleapis.com
+```
+
+Naturally, to use Earth Engine you need to [sign-up](https://earthengine.google.com/signup/). In order to allow an application (rather than a human end-user) to access Earth Engine through our account, we need to setup a service account for our GCP project and register this on our Earth Engine account (more info [here](https://developers.google.com/earth-engine/guides/service_account)). The first step is to create the service account
+
+```{bash sa, eval=FALSE, echo=T}
+gcloud iam service-accounts create ee-function \
+--description="testing_ee_function" \
+--display-name="test_ee_function"
+```
+
+Next we create a key for the service account and download it locally as a json file.
+
+```{bash key, eval=FALSE, echo=T}
+gcloud iam service-accounts keys create sa-private-key.json \
+--iam-account=ee-function@ee-vegetation-gee4geo.iam.gserviceaccount.com
+```
+
+The last registration step is to register the service account we used above for Earth Engine access [here](https://signup.earthengine.google.com/#!/service_accounts). In this example our service account address is `ee-function@ee-vegetation-gee4geo.iam.gserviceaccount.com` i.e. `SERVICEACCOUNT@PROJECTNAME.iam.gserviceaccount.com`  
+
+### Earth Engine Cloud Function
+Now we get to the meat and potatoes - preparing our Earth Engine script. Our script will be deployed as a single function by [Google Cloud Functions](https://cloud.google.com/functions). We will therefore wrap our Earth Engine code inside a python function. The framework of our .py file will look like
+
+```{python main, eval=FALSE, echo=T}
+
+import package
+
+def main(*args, **kwargs):
+  value = "value"
+  return value
+```
+
+We simply need to import the packages our function requires and place our Earth Engine script inside the function `main`. The actual content of our Earth Engine script is not important in this example. For demonstration purposes here all we will do is calculate the median reflectance of all Sentinel 2 images in the previous 30 days within a set region. An important step here is determining today's date using the python  `datetime` package and converting this to an Earth Engine date. This allows us to modify the date over which our analysis is done based on the date on which it is run by the scheduler. At the end of the script we set the `time_start` property of the image to the date on which the script was called and export it, adding to an existing ImageCollection. 
+
+```{python setup, eval=FALSE, echo=T}
+import ee
+import datetime
+
+def main(*args, **kwargs):
+
+  #initialize earth engine using json key for service account
+	service_account = 'ee-function@ee-vegetation-gee4geo.iam.gserviceaccount.com'
+	credentials = ee.ServiceAccountCredentials(service_account, 'sa-private-key.json')
+	ee.Initialize(credentials)
+
+  #our AOI
+	geom = ee.Geometry.Polygon([[[18.430231010200725, -34.051410739766304],[18.430231010200725, \
+	-34.07871402933222],[18.4563235394976, -34.07871402933222],[18.4563235394976, -34.051410739766304]]])
+
+  #get current date and convert to ee.Date
+	end_date_str = datetime.datetime.today().strftime('%Y-%m-%d')
+	end_date = ee.Date(end_date_str)
+	start_date = end_date.advance(-1,'month')
+  
+  #calculate median Sentinel 2 reflectance
+	im = ee.ImageCollection("COPERNICUS/S2_SR")\
+	.filterBounds(geom)\
+	.filterDate(start_date,end_date)\
+	.median()
+  
+  #record the date by setting it as a property
+	im = im.set({'system:time_start':end_date})
+
+  #export by adding to an existing EE imageCollection
+	folder ='projects/ee-vegetation-gee4geo/assets/test2/'
+	filename = folder + 'exampleExport_'+ end_date_str
+
+	task = ee.batch.Export.image.toAsset(image=im,   
+	                                     region=geom, 
+	                                     assetId=filename, 
+	                                     scale=100)
+
+	task.start()
+
+	return task
+```
+
+We need to create a `requirements.txt` file listing the packages our function requires. For this example this is just the `earthengine-api`, as `datetime` is installed by default in Python 3.7, and the file contents will simply be
+
+`
+earthengine-api
+`
+
+Now we are ready to upload the function to GCP and deploy using Cloud Functions. Double check that your current working directory contains the following files only:  
+our python function: `main.py`  
+the requirements: `requirements.txt`  
+the json key: `sa-private-key.json`  
+
+```{bash func, eval=FALSE, echo=T}
+gcloud functions deploy ee-function \
+--runtime=python37 \
+--entry-point=main \
+--trigger-topic=ee_topic
+```
+
+If all goes well our function should deploy. 
+
+### Setting a trigger and scheule
+
+We can view the function and it's details on the Cloud Functions tab of our GCP web console. When we deployed the function we set a trigger that will cause the function to execute `--tigger-topic=ee_topic`. This created a GCP Pub/Sub topic called `ee_topic`. [Pub/Sub](https://cloud.google.com/pubsub) is GCP's messaging service which integrates different components, some of which publish messages, and others that consume/subscribe to these messages. Our function consumes messages published to `ee_topic`, which will trigger it's execution.  
+
+All we need to do now is publish messages to `ee_topic` and this will trigger our function. There are a number of ways to do this in GCP. For example we could trigger our function through an HTTP request, or when a new object is added to a Cloud Storage bucket (this is a nice way of linking multiple scripts that depend on the output of each other). Here we will use a scheduler which publishes messages to `ee_topic` and triggers our function on a regular predefined schedule. 
+
+To do this we will use [Cloud Scheduler](https://cloud.google.com/scheduler). The argument `--schedule` determines how often to publish to the `ee_job` topic, and we use the well known `cron` syntax. [Crontab](https://crontab.guru/) is a nice website which helps convert your schedule into `cron` syntax if you are not familiar with it. Here we simply publish once a month
+
+```{bash sched, eval=FALSE, echo=T}
+gcloud scheduler jobs create pubsub ee_job \
+--schedule="0 0 1 * *" \
+--topic=ee_topic \
+--message-body="run_ee"
+```
+
+
+### Thanks for stopping by
+
+All done! Our function will now execute once a month every month for eternity. We can also manually trigger the execution of our function by visiting the Cloud Scheduler tab on our GCP cloud console. The best thing about the entire workflow? It is completely free. Earth Engine is free, Cloud Functions are free (up to 2 million invocations / month), Pub/Sub is free (up to 10 Gb / month) and Cloud Scheduler is free (up to 3 independent schedules per month). We are very unlikely to exceed these limits when using these service to automate Earth Engine analyses.
+
+In summary we have put together a workflow for deploying any Earth Engine script to run on a schedule. There are many use cases for this, particularly when the end-use of our analysis is a product or insight that is needed for up-to-date decision making, or when we want to ensure that any downstream task that uses our output is making use of the most recent data.
+
+
