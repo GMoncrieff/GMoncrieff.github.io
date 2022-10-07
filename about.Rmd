@@ -15,19 +15,16 @@ knitr::opts_chunk$set(echo = FALSE)
 <img src="avatar_small.png" style="width:200px">
 </p>
 
-My name is Glenn Moncrieff, I live in beautiful Cape Town, South Africa. I pass my time trying to think of smart ways of using data to solve problems. My favourite problems to solve are those that involve environmental protection or social justice. My most favourite problems to solve are those that involve the flora of South Africa, particulary the unique and spectacular fynbos biome.  I divide my energy among a few challanges:
+My name is Glenn Moncrieff, I live in beautiful Cape Town, South Africa. I pass my time trying to think of smart ways of using data to solve problems. My favourite problems to solve are those that involve environmental protection or social justice. My most favourite problems to solve are those that involve remote sensing of vegetation. I divide my energy among a few challenges:
 
-## Data Science  
-  
-Building skills in R and Python. I mostly work with geospatial data, machine learning and Bayesian statistics, and try to stay on top of the software stack used for these tasks.
+## Data Science in R and Python
+I have 8+ years post PhD experience working as a data scientist in academia and industry. I have worked with a range of tools for big data analytics, machine learning, probabilistic programming and geospatial analytics. I try to stay on top of the software stack in these domains
 
-## Ecology  
-  
-Spending time staring at plants in the field to understand their innermost thoughts. My research is focused on linking plant ecology to the carbon and water cycles in Africa and the fynbos biome in particular. Often I find remote sensing and ecological models to be the tools best suited to these tasks. Find out more at [SAEON fynbos node](https://fynbos.saeon.ac.za/) or visit my [Google Scholar](https://scholar.google.co.za/citations?user=_FFdaCUAAAAJ&hl=en&authuser=1) to see a list of my publications
+##Remote Sensing
+I have 10+ years analysing environmental challenges with remote sensing and geospatial data using scalable tools like Google Earth Engine and xarray
 
-## Teaching  
-  
-Spreading the gospel of open source software, open science, and data literacy. I believe in their ability to democratize research and empower youth to acquire in-demand computing skills without the financial and social barriers imposed by traditional higher education. I supervise university students, design data science curricula, and teach data literacy to students across Africa as a Data Carpentry Instructor. Find out more at [Software Carpentry](https://carpentries.org/)
+##Ecological Research
+I have published over 17 papers in leading global journals and co-authored recent IPCC reports. My research is focused on using machine learning and remote sensing to improve vegetation monitoring
 
 ## Mountains/Oceans  
   
@@ -37,7 +34,7 @@ When all the sciencing gets too much I escape to the mountains and oceans to sur
 ### Contact
 If you would like to get hold of me, don't hesitate to send me an email at:  
   
-<glenn@saeon.ac.za>
+<glennmoncrieff@gmail.com>
 
 
 <div class="appendix-bottom">
