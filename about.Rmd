@@ -20,10 +20,10 @@ My name is Glenn Moncrieff, I live in beautiful Cape Town, South Africa. I pass 
 ## Data Science in R and Python
 I have 8+ years post PhD experience working as a data scientist in academia and industry. I have worked with a range of tools for big data analytics, machine learning, probabilistic programming and geospatial analytics. I try to stay on top of the software stack in these domains
 
-##Remote Sensing
+## Remote Sensing
 I have 10+ years analysing environmental challenges with remote sensing and geospatial data using scalable tools like Google Earth Engine and xarray
 
-##Ecological Research
+## Ecological Research
 I have published over 17 papers in leading global journals and co-authored recent IPCC reports. My research is focused on using machine learning and remote sensing to improve vegetation monitoring
 
 ## Mountains/Oceans  
