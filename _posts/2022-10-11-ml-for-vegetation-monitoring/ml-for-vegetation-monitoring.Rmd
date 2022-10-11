@@ -1,0 +1,15 @@
+---
+title: "Machine learning for vegetation monitoring"
+description: |
+  A seminar given in early 2022 outling the past few years of my research at SAEON
+author:
+  - name: Glenn Moncrieff
+    url: {}
+date: 06-01-2022
+output:
+  distill::distill_article:
+    self_contained: false
+preview: mlveg.png
+---
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/G_Ec-ptVd1I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
