@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ADVI vs MCMC — Glenn Moncrieff</title>
+<link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="../index.html" aria-label="Home">
+      <svg class="brand__mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="90,50 70,84.64 30,84.64 10,50 30,15.36 70,15.36" stroke="currentColor" stroke-width="3" stroke-linejoin="round" opacity="0.85"/>
+        <line x1="50" y1="33" x2="37" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <line x1="50" y1="33" x2="63" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <line x1="37" y1="61" x2="63" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <circle cx="50" cy="33" r="6" fill="var(--accent)"/>
+        <circle cx="37" cy="61" r="6" fill="currentColor"/>
+        <circle cx="63" cy="61" r="6" fill="currentColor"/>
+      </svg>
+      <span class="brand__name">Glenn&nbsp;Moncrieff <span>· biodiversity data science</span></span>
+    </a>
+    <div class="nav__links">
+      <a href="../index.html">Home</a>
+      <a href="../papers.html">Papers</a>
+      <a href="../blog.html" class="is-active">Blog</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<article class="section wrap">
+  <div class="article">
+    <a class="text-link" href="../blog.html" style="margin-bottom:28px;">&larr; Back to blog</a>
+
+    <header class="article__head">
+      <div class="article__meta">
+        <span>2020 · 08 · 11</span>
+        <span>·</span>
+        <span>8 min read</span>
+        <span>·</span>
+        <span style="color:var(--accent);">Forecasting</span>
+      </div>
+      <h1>ADVI vs MCMC</h1>
+      <p class="hero__tag" style="text-align:left; margin:0; max-width:62ch;">Comparing two ways to fit a Bayesian model of post-fire vegetation recovery: MCMC and ADVI.</p>
+    </header>
+
+    <div class="prose">
+      <p>Markov Chain Monte Carlo (MCMC) is the workhorse of modern statistics. Efficient implementations in languages such as <a href="https://mc-stan.org/" target="_blank" rel="noopener">Stan</a>, <a href="http://mcmc-jags.sourceforge.net/" target="_blank" rel="noopener">JAGS</a>, and <a href="https://docs.pymc.io/" target="_blank" rel="noopener">PyMC3</a> and many others mean that nowadays we can simply focus on the statistical model and ecological problems we are interested in and leave the estimation of posterior probabilities to be worked out by the MCMC sampler. There is, however, one MAJOR drawback to MCMC</p>
+
+      <p>IT. IS. SLOW.</p>
+
+      <p>I mean, when you understand what it is really doing under the hood it is actually doing this really, really fast. It is plenty fast for the majority of analyses - those that do not involve estimating 1000s of parameters. But it does not feel that way when you are trying to fit a model with a parameter for every sites on a large spatial grid or every point in a long time-series.</p>
+
+      <p>A project that I have been working on for a few years involves estimating the postfire recovery of vegetation in the Cape Floristic Region (CFR) of South Africa. Objectively the most beautiful vegetation on earth</p>
+
+      <figure>
+        <img src="../assets/posts/advi-vs-mcmc/IMG_7750.jpeg" alt="Cape Floristic Region" />
+        <figcaption>The Cape Floristic Region.</figcaption>
+      </figure>
+
+      <p>The details are given in (<a href="https://doi.org/10.1016/j.isprsjprs.2020.05.017" target="_blank" rel="noopener">Slingsby et al. 2020</a>; Wilson et al. 2015), but in short what we do is estimate the age of a site by calculating the years since the last fire. We then fit a curve to model the recovery of vegetation (measured using NDVI) as a function of it's age. For this we use a negative exponential curve with the following form:</p>
+
+      <p style="text-align:center; font-size:1.12rem;">μ<sub>i,t</sub> = α<sub>i</sub> + γ<sub>i</sub>(1 − e<sup>−age<sub>i,t</sub>/λ<sub>i</sub></sup>)</p>
+
+      <p>where μ<sub>i,t</sub> is the expected NDVI for site <em>i</em> at time <em>t</em></p>
+
+      <p>The observed greenness NDVI<sub>i,t</sub> is assumed to follow a normal distribution with mean μ<sub>i,t</sub></p>
+
+      <p style="text-align:center; font-size:1.12rem;">NDVI<sub>i,t</sub> ~ N(μ<sub>i,t</sub>, σ)</p>
+
+      <p>An additional level models the parameters of the negative exponential curve as a function of environmental variables. This means that sites with similar environmental conditions should have similar recovery curves. The full model also includes a sinusoidal term to capture seasonal variation, but lets keep it simple here.</p>
+
+      <p>To fit this model, we must estimate multiple parameters for every timestep and every pixel in the landscape on a 250m grid. That ends up at 1440000 * n parameters * t timesteps for the 90 000 km2 of the CFR. As you can imagine the model takes a VERY long time to fit using MCMC (around 2 weeks).</p>
+
+      <h2>MCMC</h2>
+      <p>To get a feel for this problem I will fit the model using MCMC to a small sample of sites from across the region using Stan and R.</p>
+
+      <p>Lets load up the libraries we need</p>
+
+      <pre><code class="language-r">library(cmdstanr)
+library(posterior)
+library(bayesplot)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(knitr)
+library(ggplot2)
+color_scheme_set("brightblue")
+set.seed(83)</code></pre>
+
+      <p>and pull in the data for some plots</p>
+
+      <pre><code class="language-r">#read raw data
+postfire &lt;- read.csv("postfire.csv")
+#tidy up
+postfire &lt;- postfire %&gt;%
+  filter(ND&gt;0) %&gt;% #remove impossible NDVI values
+  filter(nid %in% as.numeric(sample(levels(as.factor(postfire$nid)),50))) %&gt;% #subset plots
+  mutate(age=DA/365.23) %&gt;% #convert age from days to years
+  select(age=age,nd=ND,pid=nid,env1=map,env2=tmax01) %&gt;%
+  mutate(pid = as.numeric(as.factor(pid))) %&gt;%
+  mutate(env1 = (env1 - mean(env1))/sd(env1),env2 = (env2 - mean(env2))/sd(env2)) #standardize env variables
+
+#plots level data on env conditions
+postfire_grp &lt;- postfire %&gt;%
+  group_by(pid) %&gt;%
+  summarise(envg1 = max(env1),envg2 = max(env2))
+
+#prep data for stan
+postfire_data &lt;- list(N = nrow(postfire),
+                     J= nrow(postfire_grp),
+                     nd=postfire$nd,
+                     age= postfire$age,
+                     pid=postfire$pid,
+                     envg1 = postfire_grp$envg1,
+                     envg2 = postfire_grp$envg2)
+
+kable(head(postfire))</code></pre>
+
+      <p>We have <code>age</code> in years, a plot identifier <code>pid</code>. the observed ndvi <code>nd</code> and two plot level environmental variable <code>env1</code>, which is mean annual precipitation, and <code>env2</code>, which is the summer maximum temperature.</p>
+
+      <p>Lets load up our Stan model which codes the model described above. This is not a particularly clever or efficient way of coding the model, but it is nice and readable and works fine on this example dataset</p>
+
+      <pre><code class="language-r">model &lt;- cmdstan_model('firemodel_predict.stan', compile = TRUE)
+model$print()</code></pre>
+
+      <p>We then fit the model</p>
+
+      <pre><code class="language-r">fit_mcmc &lt;- model$sample(
+  data = postfire_data,
+  seed = 123,
+  refresh=500,
+  chains = 2,
+  parallel_chains = 2,
+  iter_warmup = 1000,
+  iter_sampling = 2000
+)</code></pre>
+
+      <p>and do the normal checks to see that our MCMC sampler behaved itself (skipped here). If we check our posterior traces for some parameters they looks like healthy, hairy caterpillars</p>
+
+      <pre><code class="language-r">mcmc_trace(fit_mcmc$draws(c("tau","alpha_mu")))</code></pre>
+
+      <figure>
+        <img src="../assets/posts/advi-vs-mcmc/mcmc_check2-1.png" alt="MCMC trace plots" />
+        <figcaption>Posterior traces for some parameters.</figcaption>
+      </figure>
+
+      <p>The crux here is how long it takes to run this sampler</p>
+
+      <pre><code class="language-r">fit_mcmc$time()$total</code></pre>
+
+      <p>2954 seconds or 50 minutes to do just 50 sites. Remember the full dataset is 1440000 sites. While there are a couple of good options to improve the efficiency of this model, and <a href="https://mc-stan.org/users/documentation/case-studies/reduce_sum_tutorial.html" target="_blank" rel="noopener">neat new ways</a> of parallelizing within-chain operations in Stan, MCMC is always going to take a long time for this kind of task. Wouldn't it be great if there was another, faster way of estimating the full posterior....</p>
+
+      <h2>Variational Inference</h2>
+      <p>Variational inference (VI) is a method for approximating the posterior that has been around for a while. VI is much, much faster than MCMC, and can scale to very large datasets. The major drawback that has limited it's use is that model-specific calculations and derivations are required to implement VI. The joke is that deriving your VI algorithm is what you do while you wait for your MCMC sampler to finish. But there has been some exciting activity in VI research lately that has made it possible to automate the process of deriving scalable variational inference algorithms for a wide class of models. I am going to skip the details here, but these publications are worth digging into if you are interested in this (Kucukelbir et al. 2015, 2017; Blei et al. 2017).</p>
+
+      <p>The salient point is that Automatic Differentiation Variational Inference (ADVI) turns the task of computing a posterior into an optimization problem - we simply need to use an optimization algorithm like stochastic gradient ascent (SGA) to maximize a loss function. With SGA we can also feed our data in as mini-batches (subsamples), which adds the potential to scale to very large datasets. The best part of all of this is that ADVI is already implemented in a number of probabilistic programming languages, including Stan. All we need is to change one line of code and we can fit the same Stan model using ADVI:</p>
+
+      <pre><code class="language-r">fit_vb &lt;- model$variational(
+  data = postfire_data,
+  adapt_engaged=FALSE,
+  eta=0.1,
+  tol_rel_obj = 0.001,
+  seed = 123)</code></pre>
+
+      <p>How long did that take?</p>
+
+      <pre><code class="language-r">fit_vb$time()$total</code></pre>
+
+      <p>28 seconds, or about 100 times faster than MCMC. In separate tests I have tried it doesn't seem to take much longer on the full dataset.</p>
+
+      <h2>Ok, what's the catch?</h2>
+      <p>ADVI, like all of variational inference, is an approximate inference technique; whereas MCMC, if done right, will converge to the exact posterior. ADVI assumes no dependency (i.e. zero correlations) between parameter distributions, if this is not the case, ADVI can underestimate variances in the parameter distributions (though there are extensions that can help with this).</p>
+
+      <p>In practice what this means that if you want to use ADVI it is a good idea to compare posteriors estimated using ADVI and MCMC, if this is possible. For our model the ADVI and MCMC parameter estimates are pretty close</p>
+
+      <pre><code class="language-r">bayesplot_grid(
+  mcmc_dens(fit_vb$draws("tau")),
+  mcmc_dens(fit_mcmc$draws("tau")),
+  titles = c("MCMC", "ADVI"),
+  xlim = c(0.04, 0.07)
+)</code></pre>
+
+      <figure>
+        <img src="../assets/posts/advi-vs-mcmc/p1-1.png" alt="Posterior density comparison for tau" />
+      </figure>
+
+      <pre><code class="language-r">bayesplot_grid(
+  mcmc_dens(fit_vb$draws("alpha_mu")),
+  mcmc_dens(fit_mcmc$draws("alpha_mu")),
+  titles = c("MCMC", "ADVI"),
+  xlim = c(-2.5, 0)
+)</code></pre>
+
+      <figure>
+        <img src="../assets/posts/advi-vs-mcmc/p2-1.png" alt="Posterior density comparison for alpha_mu" />
+      </figure>
+
+      <pre><code class="language-r">bayesplot_grid(
+  mcmc_dens(fit_vb$draws(c("gamma_b2","gamma_b1","lambda_b1","lambda_b2"))),
+  mcmc_dens(fit_mcmc$draws(c("gamma_b2","gamma_b1","lambda_b1","lambda_b2"))),
+  titles = c("MCMC", "ADVI"),
+  xlim = c(-1, 1),
+  grid_args=list(ncol=2)
+)</code></pre>
+
+      <figure>
+        <img src="../assets/posts/advi-vs-mcmc/p3-1.png" alt="Posterior density comparison for curve parameters" />
+      </figure>
+
+      <p>But what we are really interested in with this model is the posterior predictions of observed NDVI. We want to use the model to estimate future NDVI and compare to observations. The idea is that this comparison will allow us to diagnose sites where NDVI is going off-track, and there may be some underlying ecological problem (see (Slingsby et al. 2020) for more details). Even if ADVI is not exact, if it returns posterior predictive intervals very close to MCMC in a fraction of the time it would mean we could scale this idea to very large areas.</p>
+
+      <p>Lets try this on our data. First lets extract the posterior predictive intervals that we generated in the MCMC and ADVI model and wrangle them into a neat data frame</p>
+
+      <pre><code class="language-r">#posterior predictive
+stan_vb &lt;- fit_vb$summary("nd_new","mean","quantile2")
+stan_mcmc &lt;- fit_mcmc$summary("nd_new","mean","quantile2")
+#add observed data
+stan_vb$method &lt;- "ADVI"
+stan_vb$age &lt;- postfire_data$age
+stan_vb$pid &lt;- postfire_data$pid
+stan_vb$nd &lt;- postfire_data$nd
+stan_mcmc$method &lt;- "MCMC"
+stan_mcmc$age &lt;- postfire_data$age
+stan_mcmc$pid &lt;- postfire_data$pid
+stan_mcmc$nd &lt;- postfire_data$nd
+#wrangle
+stan_ndvi &lt;- rbind(stan_vb,stan_mcmc) %&gt;%
+  select(age=age,NDVI=nd,pid,mean,upper=q95,lower=q5,method) %&gt;%
+  filter(pid %in% as.numeric(sample(levels(as.factor(stan_vb$pid)),6)))
+stan_ndvi$method &lt;- ordered(stan_ndvi$method)</code></pre>
+
+      <p>When we make this comparison, the posterior predictive intervals from ADVI and MCMC are almost identical</p>
+
+      <pre><code class="language-r">ggplot(data=stan_ndvi,aes(x=age)) +
+  geom_line(aes(y=mean,lty=method),colour="blue") +
+  geom_line(aes(y=NDVI),colour="black",lwd=0.5,alpha=0.3) +
+  geom_ribbon(aes(ymin=lower,ymax=upper,fill=method),alpha=0.5)+
+  facet_wrap(~pid) +
+  xlim(c(0,20))+
+  labs(x="time since fire (years)",y="NDVI") +
+  theme_bw()</code></pre>
+
+      <figure>
+        <img src="../assets/posts/advi-vs-mcmc/plot-1.png" alt="Posterior predictive NDVI recovery curves from ADVI and MCMC" />
+        <figcaption>Posterior predictive recovery curves from ADVI and MCMC are almost identical.</figcaption>
+      </figure>
+
+      <p>This is great news. If we were trying to make inferences about ecological process from parameters estimates, we would want an exact method like MCMC (Wilson et al. 2015). But for the purposes of monitoring vegetation we are not interested in this - we only want a method that give us a good-enough fit and that is practical to deploy. ADVI fits the bill here, and we are excited to see where we go with the newfound ability to scale our analyses to bigger areas and finer scales.</p>
+    </div>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="90,50 70,84.64 30,84.64 10,50 30,15.36 70,15.36" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="50" cy="33" r="6" fill="var(--accent)"/>
+      </svg>
+      <span class="footer__copy">© 2026 Glenn Moncrieff</span>
+    </div>
+    <div class="footer__links">
+      <a href="../papers.html">Papers</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+    <span class="footer__copy">Cape Town · South Africa</span>
+  </div>
+</footer>
+
+<script src="../assets/highlight.min.js"></script>
+<script>hljs.configure({ languages: ['r', 'python', 'bash', 'json'] }); hljs.highlightAll();</script>
+
+</body>
+</html>

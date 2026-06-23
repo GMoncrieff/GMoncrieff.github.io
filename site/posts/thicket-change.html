@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Real-time detection of land cover change — Glenn Moncrieff</title>
+<link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="../index.html" aria-label="Home">
+      <svg class="brand__mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="90,50 70,84.64 30,84.64 10,50 30,15.36 70,15.36" stroke="currentColor" stroke-width="3" stroke-linejoin="round" opacity="0.85"/>
+        <line x1="50" y1="33" x2="37" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <line x1="50" y1="33" x2="63" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <line x1="37" y1="61" x2="63" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <circle cx="50" cy="33" r="6" fill="var(--accent)"/>
+        <circle cx="37" cy="61" r="6" fill="currentColor"/>
+        <circle cx="63" cy="61" r="6" fill="currentColor"/>
+      </svg>
+      <span class="brand__name">Glenn&nbsp;Moncrieff <span>· biodiversity data science</span></span>
+    </a>
+    <div class="nav__links">
+      <a href="../index.html">Home</a>
+      <a href="../papers.html">Papers</a>
+      <a href="../blog.html" class="is-active">Blog</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<article class="section wrap">
+  <div class="article">
+    <a class="text-link" href="../blog.html" style="margin-bottom:28px;">&larr; Back to blog</a>
+
+    <header class="article__head">
+      <div class="article__meta">
+        <span>2018 · 10 · 31</span>
+        <span>·</span>
+        <span>6 min read</span>
+        <span>·</span>
+        <span style="color:var(--accent);">Remote Sensing</span>
+      </div>
+      <h1>Real-time detection of land cover change</h1>
+      <p class="hero__tag" style="text-align:left; margin:0; max-width:62ch;">Detecting vegetation clearing using Sentinel 2 time series.</p>
+    </header>
+
+    <div class="prose">
+      <p>If you were to judge by media coverage climate change and poaching would probably rank as the biggest threats to biodiversity globally. Yet when <a href="https://www.worldwildlife.org/pages/living-planet-report-2018" target="_blank" rel="noopener">systematically assessed</a>, the most important factor causing the massive declines in species across all ecosystems both terrestrial and aquatic is <a href="https://www.ipbes.net/assessment-reports/ldr" target="_blank" rel="noopener">habitat transformation</a>. In South Africa's terrestrial ecosystem the <a href="https://www.sanbi.org/biodiversity/building-knowledge/biodiversity-monitoring-assessment/national-biodiversity-assessment/" target="_blank" rel="noopener">same is true</a>. High rates of irreversible change to natural ecosystems is ongoing and loss of natural habitat continues to be the leading threat to terrestrial biodiversity.</p>
+
+      <p>A range of tools are available to aid in mapping and monitoring land cover change. <a href="https://www.globalforestwatch.org/" target="_blank" rel="noopener">Global Forest Watch</a> is an amazing tool developed by the World Resources Institute for monitoring deforestation worldwide. They continuously update maps of where deforestation is occurring based upon data collected by the USGS/NASA satellite <a href="https://landsat.usgs.gov/" target="_blank" rel="noopener">Landsat</a>. While this is a great tool, it is not designed with South Africa's ecosystems in mind, and thus has limited applicability. South Africa has a <a href="http://bgis.sanbi.org/DEA_Landcover/project.asp" target="_blank" rel="noopener">national land cover map</a> tracking the distribution of a range of natural and non-natural land cover types based upon the same Landsat data as Global Forest Watch. The problem with the national land cover map is that is is only updated every 5-10 years on a somewhat ad hoc basis. It allows us to report on the rate at which habitats are being destroyed, but neither it nor Global Forest Watch (which provides updates every year) produce information fast enough to inform interventions that could halt habitat destruction while it is happening. Enforcement authorities are in particular need of information that might help them to catch land owners in the act of illegally transforming natural vegetation, as currently only <a href="https://www.environment.gov.za/sites/default/files/reports/nationalenvironmentalcomplianceandenforcementreport2016_17.pdf" target="_blank" rel="noopener">5%</a> of investigated cases end in a successful prosecution.</p>
+
+      <p>Newly launched satellite platforms have reduced the time between image acquisitions and increased image resolution to the point that it is now possible to detect land transformation within days of its occurrence. <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-2" target="_blank" rel="noopener">Sentinel 2</a> - launched by the European Space Agency (ESA) on the 23rd of June 2015 consists of 2 satellites capable of revisiting any place on earth every 5 days and producing images at 10 meter spatial resolution. Even more detail is available from the constellation of almost 200 microsatellites owned by <a href="https://www.planet.com" target="_blank" rel="noopener">Planet Inc</a>. Planet's satellites reimage the Earth every day at 3 meter resolution. ESA's open data policy makes it possible to monitor large areas using their data as it comes at no cost, while Planet provides a limited amount of data for free to academic users allowing focused monitoring over key areas.</p>
+
+      <p>I set out to test how rapidly land transformation could be detected using these two platforms in an area of South Africa that is undergoing rapid irreversible land cover change. The Albany Thicket biome is a part of a global <a href="https://www.conservation.org/global/ci_south_africa/where-we-work/maputaland-pondoland-albany/Pages/maputaland-pondoland-albany-hotspot.aspx" target="_blank" rel="noopener">biodiversity hotspot</a> and home to an amazing array of indigenous plants and animals - many of which are of immense <a href="https://www.sciencedirect.com/science/article/pii/S2212041617303960" target="_blank" rel="noopener">economic</a>, <a href="http://www.scielo.org.za/scielo.php?pid=S0038-23532012000300016&amp;script=sci_abstract&amp;tlng=en" target="_blank" rel="noopener">cultural and spiritual</a> value to local people.</p>
+
+      <figure>
+        <img src="../assets/posts/thicket-change/thicket.jpg" alt="The Albany thicket biome" />
+        <figcaption>The Albany thicket biome.</figcaption>
+      </figure>
+
+      <p>Enforcement authorities have reported high rates of illegal vegetation clearing across the biome, but an area of particular concern surrounds the town of Alexandria near Port Elizabeth, where patches of thicket and forest undisturbed for thousands of years are being cleared for diary pasture at an alarming rate. I identified a small area where a patch of vegetation had recently been cleared and set myself the task of attempting to automate the detection of this change within days of its occurrence. Here you can see a timelapse covering the period from the 23rd of January to the 2nd of February 2018. From this imagery is is apparent that the vegetation was cleared around the 1st of February. (Disclaimer: I make no allegations about the legality of this vegetation clearing. It is possible that what this landowner did is entirely legal)</p>
+
+      <figure>
+        <img src="../assets/posts/thicket-change/pl_gif.gif" alt="thicket clearing" />
+        <figcaption>Planet imagery timelapse, late January to early February 2018.</figcaption>
+      </figure>
+
+      <p>All the code to reproduce my analysis is available at <a href="https://github.com/GMoncrieff/thicket_monitoring" target="_blank" rel="noopener">this github repo</a>. But here is a quick breakdown of how I went about this:</p>
+
+      <p>First I downloaded all the data available for this area from Planet and Sentinel 2 from when their records began until the 31st of March 2018 - about 2 months after the clearing event. This amounts to about 2 years of data for each. In the end I had around 120 images to analyse from Planet and 50 from Sentinel 2. Then I needed to correct the raw data from level 1 data, or what the sensor sees at the top of the atmosphere, to surface reflectance - what the earth's surface looks like without the interference of the atmosphere. This is done by correcting the data for the effect of things like clouds, haze, the varying angle and intensity of the sun's illumination, and topography. Fortunately Planet have done this for me already and I can simply download their <a href="https://assets.planet.com/marketing/PDF/Planet_Surface_Reflectance_Technical_White_Paper.pdf" target="_blank" rel="noopener">surface reflectance data</a>. Sentinel provide a tool <a href="http://step.esa.int/main/third-party-plugins-2/sen2cor/" target="_blank" rel="noopener">Sen2Cor</a> which you can run on level 1 imagery to calculate surface reflectance.</p>
+
+      <p>Using the processed surface reflectance data I calculate a measure of vegetation greeness called NDVI or Normalized Difference Vegetation Index. NDVI is a measure of how much photosynthetic activity there is. A high NDVI value (near 1) indicates lush vegetation like a forest, while a low value (around 0.2) indicates bare soil. A sudden drop in NDVI suggests a reduction in photosynthesis, and may be related to vegetation loss. After downloading all the data, processing it to surface reflectance and calculating NDVI I end up with a stack of NDVI images for a series of dates across the region I wish to monitor.</p>
+
+      <figure>
+        <img src="../assets/posts/thicket-change/stack.jpg" alt="NDVI stack" />
+        <figcaption>A stack of NDVI images through time.</figcaption>
+      </figure>
+
+      <p>These data are the basis upon which we detect land transformation using an algorithm called BFAST (Breaks For Additive Season and Trend). BFAST works by defining in a period in which we know vegetation to be stable and not subject to transformation. The trends and behaviour of NDVI through time within this period are used to build of model of what the expected pattern ought to look like if this vegetation where to continue to function similarly. We then project expected NDVI patterns into the future and compare these to new data as they are acquired. If the new data exceeds our expectations by some threshold we flag this as an anomaly and a potential case of land cover change.</p>
+
+      <figure>
+        <img src="../assets/posts/thicket-change/bf3.png" alt="BFAST" />
+        <figcaption>The BFAST approach to detecting breaks in an NDVI time series.</figcaption>
+      </figure>
+
+      <p>This is the procedure that was followed using the Sentinel 2 and Planet data. We build models using data up to the 31st of December 2018 and monitored change from the 1st of January 2018 onwards. Using the Planet data I was able to detect the land transformation we were interested in within 1 to 2 days of its occurrence! The breakpoint is detected on day 33 of the year - or the 2nd of Feb. Remember the raw images showed the change occurring on the 1st. This is what the actual data look like:</p>
+
+      <figure>
+        <img src="../assets/posts/thicket-change/pl_bf.jpg" alt="BFAST on Planet data" />
+        <figcaption>BFAST applied to the Planet NDVI series, with the breakpoint detected on 2 February.</figcaption>
+      </figure>
+
+      <p>Running this over the whole area of interest shows how we can accurately outline the clearing and automate the detection of areas that are cleared. The timelapse shows when the detection occurs by highlighting the cleared area - a day after it occurs!.</p>
+
+      <figure>
+        <img src="../assets/posts/thicket-change/pl_gif2.gif" alt="thicket clearing" />
+        <figcaption>The detected clearing highlighted as it is picked up.</figcaption>
+      </figure>
+
+      <p>This process is not perfect. You can see how we outline some areas that have not been transformed, and similarly, it is likely that we will fail to detect some areas that have been cleared.</p>
+
+      <p>It takes around a month after clearing to detect the event using Sentinel data, but it also provides a good outline of areas that have changed during the monitoring period. By the 13th of March clearing had been accurately detected in the areas we are concerned with, and an additional area to the north that I had not been previously aware of</p>
+
+      <figure>
+        <div style="position:relative; aspect-ratio:4/3;">
+          <iframe style="position:absolute; inset:0; width:100%; height:100%; border:0; border-radius:10px;" src="https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=3055d780-ddc3-11e8-9dba-0edaf8f81e27" title="Before and after slider"></iframe>
+        </div>
+      </figure>
+
+      <p>I think this is really promising. Satellite imagery has advanced enormously in the last few years. We are now at a point where we have the imagery available to identify land cover change within days of its occurrence. Of course it is not possible to manually look through images and search for change each day, thus we need algorithms like those I have demonstrated to help with this process. I don't think we can fully automate this, there will always be the need for humans in the loop to confirm detection and throw away false positives. We have some grants that are currently being reviewed in which we propose to further develop this technology and roll it out over large areas. If things come together you will see this approach in a thicket near you soon.</p>
+    </div>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="90,50 70,84.64 30,84.64 10,50 30,15.36 70,15.36" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="50" cy="33" r="6" fill="var(--accent)"/>
+      </svg>
+      <span class="footer__copy">© 2026 Glenn Moncrieff</span>
+    </div>
+    <div class="footer__links">
+      <a href="../papers.html">Papers</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../contact.html">Contact</a>
+    </div>
+    <span class="footer__copy">Cape Town · South Africa</span>
+  </div>
+</footer>
+
+</body>
+</html>

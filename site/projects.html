@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects — Glenn Moncrieff</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html" aria-label="Home">
+      <svg class="brand__mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="90,50 70,84.64 30,84.64 10,50 30,15.36 70,15.36" stroke="currentColor" stroke-width="3" stroke-linejoin="round" opacity="0.85"/>
+        <line x1="50" y1="33" x2="37" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <line x1="50" y1="33" x2="63" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <line x1="37" y1="61" x2="63" y2="61" stroke="currentColor" stroke-width="2.4" opacity="0.5"/>
+        <circle cx="50" cy="33" r="6" fill="var(--accent)"/>
+        <circle cx="37" cy="61" r="6" fill="currentColor"/>
+        <circle cx="63" cy="61" r="6" fill="currentColor"/>
+      </svg>
+      <span class="brand__name">Glenn&nbsp;Moncrieff <span>· biodiversity data science</span></span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="papers.html">Papers</a>
+      <a href="blog.html">Blog</a>
+      <a href="projects.html" class="is-active">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-head wrap">
+  <span class="mono">// Selected work</span>
+  <h1>Projects</h1>
+  <p>A few projects I have built or helped lead, across biodiversity monitoring, forecasting, and tools for conservation. Code and live demos are linked where they exist.</p>
+</header>
+
+<section class="section--tight wrap">
+  <div class="res-grid">
+
+    <div class="res">
+      <div class="res__top">
+        <span class="res__kind">Forecasting</span>
+        <svg class="res__icon" viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 8-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 7h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Human modification forecasting</h3>
+      <p>The Human Modification metric maps how much people have altered land across the world. I build models that forecast how it will change over the coming decades. The current model is a ConvLSTM that predicts modification at five to twenty year horizons and reports a calibrated range of uncertainty rather than a single number. It is meant to help conservation planning by showing where natural habitat is most likely to be lost.</p>
+      <div class="row__tags">
+        <span class="chip">PyTorch</span><span class="chip">ConvLSTM</span><span class="chip">Earth observation</span><span class="chip">Uncertainty</span>
+      </div>
+      <div class="paper__links" style="margin-top:auto;">
+        <a href="https://github.com/GMoncrieff/spatio-temporal" target="_blank" rel="noopener">Model code</a>
+        <a href="https://github.com/GMoncrieff/hm_forecasting_paper" target="_blank" rel="noopener">Paper code</a>
+        <a href="https://doi.org/10.1038/s41597-025-04892-2" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </div>
+
+    <div class="res">
+      <div class="res__top">
+        <span class="res__kind">Tool · LLMs</span>
+        <svg class="res__icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3>SciArgus</h3>
+      <p>SciArgus is a free weekly newsletter that keeps up with new research for you. It reads papers published in the last week from OpenAlex, uses a language model to score each one against your interests, and emails a short digest explaining why each paper matters to your work. It runs on free services through GitHub Actions, so it costs nothing to run.</p>
+      <div class="row__tags">
+        <span class="chip">Python</span><span class="chip">LLMs</span><span class="chip">Gemini</span><span class="chip">OpenAlex</span><span class="chip">GitHub Actions</span>
+      </div>
+      <div class="paper__links" style="margin-top:auto;">
+        <a href="https://github.com/GMoncrieff/SciArgus" target="_blank" rel="noopener">Code &amp; setup</a>
+      </div>
+    </div>
+
+    <div class="res">
+      <div class="res__top">
+        <span class="res__kind">Remote sensing</span>
+        <svg class="res__icon" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 5-9 5-9-5 9-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 13l9 5 9-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Remote sensing of fynbos biodiversity</h3>
+      <p>Fynbos is a small, very diverse, and threatened shrubland in South Africa. I use satellite and hyperspectral imagery to map its plants and track how they recover after fire. This includes deep learning to find invasive trees, spectral unmixing of NASA's EMIT imagery to separate invasive pine from native vegetation, and Bayesian models of post-fire recovery. The work feeds into BioSCape, a NASA-led imaging spectroscopy campaign in South Africa, and EMMA, a shared biodiversity monitoring platform.</p>
+      <div class="row__tags">
+        <span class="chip">Hyperspectral</span><span class="chip">NASA EMIT</span><span class="chip">Deep learning</span><span class="chip">Bayesian</span><span class="chip">BioSCape</span>
+      </div>
+      <div class="paper__links" style="margin-top:auto;">
+        <a href="https://github.com/GMoncrieff/hyper-iap" target="_blank" rel="noopener">hyper-iap</a>
+        <a href="https://github.com/GMoncrieff/aliens-unmix-emit" target="_blank" rel="noopener">aliens-unmix-emit</a>
+        <a href="https://github.com/GMoncrieff/postfire-statespace" target="_blank" rel="noopener">postfire-statespace</a>
+        <a href="https://doi.org/10.1038/s44185-024-00071-5" target="_blank" rel="noopener">BioSCape paper</a>
+      </div>
+    </div>
+
+    <div class="res">
+      <div class="res__top">
+        <span class="res__kind">Biodiversity monitoring</span>
+        <svg class="res__icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="3" width="8" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="10" width="8" height="11" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h3>Global Renosterveld Watch</h3>
+      <p>Renosterveld is another critically endangered South African shrubland, and only a small fraction of it remains. Most of the loss happens when remnants are ploughed for crops. I trained a neural network to detect this change from Sentinel-2 time series, then turned it into an operational system. A serverless pipeline on Google Cloud and Earth Engine runs predictions every twenty days and updates a public dashboard, so loss can be spotted soon after it happens.</p>
+      <div class="row__tags">
+        <span class="chip">TensorFlow</span><span class="chip">Sentinel-2</span><span class="chip">Earth Engine</span><span class="chip">Google Cloud</span>
+      </div>
+      <div class="paper__links" style="margin-top:auto;">
+        <a href="https://glennwithtwons.users.earthengine.app/view/global-renosterveld-watch" target="_blank" rel="noopener">Live dashboard</a>
+        <a href="https://github.com/GMoncrieff/renosterveld-monitor" target="_blank" rel="noopener">Model code</a>
+        <a href="https://github.com/GMoncrieff/earthengine-workflow" target="_blank" rel="noopener">Pipeline</a>
+        <a href="https://doi.org/10.3390/rs14122766" target="_blank" rel="noopener">Paper</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="90,50 70,84.64 30,84.64 10,50 30,15.36 70,15.36" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="50" cy="33" r="6" fill="var(--accent)"/>
+      </svg>
+      <span class="footer__copy">© 2026 Glenn Moncrieff</span>
+    </div>
+    <div class="footer__links">
+      <a href="papers.html">Papers</a>
+      <a href="blog.html">Blog</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <span class="footer__copy">Cape Town · South Africa</span>
+  </div>
+</footer>
+
+</body>
+</html>
