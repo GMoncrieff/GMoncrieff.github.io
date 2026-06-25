@@ -1,0 +1,30 @@
+---
+title: "Machine learning for vegetation monitoring"
+date: 2022-06-01
+categories: [AI/ML, Remote Sensing, Biodiversity monitoring, Teaching]
+description: "A seminar on using machine learning and satellite data to monitor vegetation."
+---
+
+::: {.article}
+
+[← Back to blog](../../blog.qmd){.text-link}
+
+::: {.article__head}
+<div class="article__meta"><span>2022 · 06 · 01</span><span>·</span><span>seminar</span><span>·</span><span style="color:var(--accent);">AI/ML</span></div>
+
+# Machine learning for vegetation monitoring
+
+<p class="hero__tag" style="text-align:left; margin:0; max-width:62ch;">A seminar from early 2022 covering the past few years of my research at SAEON.</p>
+:::
+
+::: {.prose}
+
+I gave this seminar at SAEON in early 2022. It covers the previous few years of my work on monitoring vegetation with machine learning and satellite data.
+
+<div style="position:relative; aspect-ratio:16/9;">
+  <iframe style="position:absolute; inset:0; width:100%; height:100%; border:0; border-radius:10px;" src="https://www.youtube.com/embed/G_Ec-ptVd1I" title="Machine learning for vegetation monitoring" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+:::
+
+:::
