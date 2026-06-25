@@ -1,3 +1,5 @@
 /_site/
 /.quarto/
+/_freeze/
+.playwright-mcp/
 .DS_Store
