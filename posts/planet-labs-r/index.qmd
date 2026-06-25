@@ -27,7 +27,7 @@ They offer a 14-day free trial, and you can apply for free usage if you wish to 
 
 ## Planet + Shiny
 
-I recently built a Shiny application that used Planet data to examine regions within the fynbos biome that are not behaving as would be expected if the vegetation was healthy. You can read more about this project [here](emma-un-challenge.html), and look at the code [here](https://github.com/GMoncrieff/EMMA_shiny).
+I recently built a Shiny application that used Planet data to examine regions within the fynbos biome that are not behaving as would be expected if the vegetation was healthy. You can read more about this project [here](../emma-un-challenge/index.qmd), and look at the code [here](https://github.com/GMoncrieff/EMMA_shiny).
 
 ## Planet data API mechanics
 
