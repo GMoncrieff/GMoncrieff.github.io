@@ -3,6 +3,7 @@ title: "Projects"
 pagetitle: "Projects — Glenn Moncrieff"
 ---
 
+```{=html}
 <header class="page-head wrap">
   <span class="mono">// Selected work</span>
   <h1>Projects</h1>
@@ -82,3 +83,4 @@ pagetitle: "Projects — Glenn Moncrieff"
 
   </div>
 </section>
+```

@@ -15,6 +15,7 @@ listing:
     fields: [date, title, description]
 ---
 
+```{=html}
 <!-- ===================== HERO ===================== -->
 <header class="hero wrap">
   <svg class="hero__mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
@@ -88,10 +89,12 @@ listing:
     <h2>Latest Writing</h2>
     <a class="mono" href="blog.html" style="color:var(--text-3);">All posts &rarr;</a>
   </div>
+```
 
 ::: {#latest}
 :::
 
+```{=html}
 </section>
 
 <!-- ===================== SELECTED PAPERS ===================== -->
@@ -130,3 +133,4 @@ listing:
     </a>
   </div>
 </section>
+```

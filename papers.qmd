@@ -3,6 +3,7 @@ title: "Papers"
 pagetitle: "Papers — Glenn Moncrieff"
 ---
 
+```{=html}
 <header class="page-head wrap">
   <span class="mono">// Publications</span>
   <h1>Papers</h1>
@@ -443,3 +444,4 @@ pagetitle: "Papers — Glenn Moncrieff"
     </div>
   </div>
 </section>
+```
