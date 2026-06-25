@@ -314,7 +314,7 @@ Now we are ready to push our complete research compendium to github. Now somebod
 
 At this point you might want to publish your research compendium to a site like [figshare](https://figshare.com/) or [zenodo](https://zenodo.org/). You should archive a specific commit of your compendium that corresponds to a submitted or published manuscript. Your archive will have a DOI associated with it. This means you have a publicly available snapshot of the code that matches the paper. Code development can continue after the paper is published, but with a DOI that links to a specific commit, other users of the code can be confident that they have the version that matches the paper. A DOI also simplifies citation of the compendium, so you can cite it in your paper (and others can cite it in their work) using a persistent URL.
 
-![Not bad](naas.jpg)
+![](naas.jpg){fig-alt="Not bad"}
 
 ## Source material
 

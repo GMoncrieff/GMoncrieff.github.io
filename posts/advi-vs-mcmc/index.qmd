@@ -170,7 +170,7 @@ bayesplot_grid(
 )
 ```
 
-![Posterior density comparison for tau](p1-1.png)
+![](p1-1.png){fig-alt="Posterior density comparison for tau"}
 
 ```r
 bayesplot_grid(
@@ -181,7 +181,7 @@ bayesplot_grid(
 )
 ```
 
-![Posterior density comparison for alpha_mu](p2-1.png)
+![](p2-1.png){fig-alt="Posterior density comparison for alpha_mu"}
 
 ```r
 bayesplot_grid(
@@ -193,7 +193,7 @@ bayesplot_grid(
 )
 ```
 
-![Posterior density comparison for curve parameters](p3-1.png)
+![](p3-1.png){fig-alt="Posterior density comparison for curve parameters"}
 
 But what we are really interested in with this model is the posterior predictions of observed NDVI. We want to use the model to estimate future NDVI and compare to observations. The idea is that this comparison will allow us to diagnose sites where NDVI is going off-track, and there may be some underlying ecological problem (see (Slingsby et al. 2020) for more details). Even if ADVI is not exact, if it returns posterior predictive intervals very close to MCMC in a fraction of the time it would mean we could scale this idea to very large areas.
 
