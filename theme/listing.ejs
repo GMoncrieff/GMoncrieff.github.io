@@ -1,0 +1,19 @@
+```{=html}
+<div class="rows" id="postRows">
+<% for (const item of items) { %>
+  <a class="row" href="<%- item.path %>" <%= metadataAttrs(item) %>>
+    <span class="row__date"><%= item.date %></span>
+    <div class="row__main">
+      <h3><%= item.title %></h3>
+      <p><%= item.description %></p>
+      <% if (item.categories && item.categories.length) { %>
+      <div class="row__tags">
+        <% for (const c of item.categories) { %><span class="chip"><%= c %></span><% } %>
+      </div>
+      <% } %>
+    </div>
+    <span class="row__arrow">&rarr;</span>
+  </a>
+<% } %>
+</div>
+```

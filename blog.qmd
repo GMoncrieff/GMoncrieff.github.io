@@ -1,0 +1,27 @@
+---
+pagetitle: "Blog — Glenn Moncrieff"
+listing:
+  id: posts
+  contents: posts
+  sort: "date desc"
+  type: default
+  template: theme/listing.ejs
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  date-format: "YYYY · MM · DD"
+  fields: [date, title, description, categories]
+---
+
+<header class="page-head wrap">
+  <span class="mono">// Notes &amp; write-ups</span>
+  <h1>Blog</h1>
+  <p>Tutorials, project write-ups, and notes on remote sensing, machine learning, and monitoring vegetation. Most of these were written between 2017 and 2022.</p>
+</header>
+
+<section class="section--tight wrap">
+
+::: {#posts}
+:::
+
+</section>
