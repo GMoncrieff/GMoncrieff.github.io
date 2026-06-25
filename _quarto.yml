@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Glenn Moncrieff"
+  favicon: assets/logo.svg
+  navbar:
+    logo: assets/logo.svg
+    title: "Glenn Moncrieff"
+    right:
+      - text: "Home"
+        href: index.qmd
+      - text: "Papers"
+        href: papers.qmd
+      - text: "Blog"
+        href: blog.qmd
+      - text: "Projects"
+        href: projects.qmd
+      - text: "Contact"
+        href: contact.qmd
+  page-footer:
+    left: "© 2026 Glenn Moncrieff"
+    center:
+      - text: "Papers"
+        href: papers.qmd
+      - text: "Blog"
+        href: blog.qmd
+      - text: "Projects"
+        href: projects.qmd
+      - text: "Contact"
+        href: contact.qmd
+    right: "Cape Town · South Africa"
+
+format:
+  html:
+    theme: theme/custom.scss
+    include-in-header: theme/fonts.html
+    page-layout: full
+    toc: false
+    anchor-sections: false
+    highlight-style: github
+    grid:
+      body-width: 1120px
+
+execute:
+  freeze: auto
