@@ -4,7 +4,7 @@ listing:
   id: posts
   contents: posts
   sort: "date desc"
-  type: default
+  type: custom
   template: theme/listing.ejs
   categories: true
   sort-ui: false
