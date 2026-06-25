@@ -10,6 +10,7 @@ project:
 website:
   title: "Glenn Moncrieff"
   favicon: assets/logo.svg
+  search: false
   navbar:
     logo: assets/logo.svg
     title: "Glenn Moncrieff"
