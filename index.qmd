@@ -1,6 +1,18 @@
 ---
 title: "Glenn Moncrieff"
 pagetitle: "Glenn Moncrieff — Conservation Data Science"
+listing:
+  - id: latest
+    contents: posts
+    sort: "date desc"
+    type: custom
+    template: theme/listing-home.ejs
+    max-items: 3
+    categories: false
+    sort-ui: false
+    filter-ui: false
+    date-format: "YYYY · MM · DD"
+    fields: [date, title, description]
 ---
 
 <!-- ===================== HERO ===================== -->
@@ -68,6 +80,18 @@ pagetitle: "Glenn Moncrieff — Conservation Data Science"
       <p class="card__body">Build <b>open tools and pipelines</b> that let conservation teams run the analysis themselves.</p>
     </div>
   </div>
+</section>
+
+<!-- ===================== LATEST WRITING ===================== -->
+<section class="section--tight wrap">
+  <div class="sec-head">
+    <h2>Latest Writing</h2>
+    <a class="mono" href="blog.html" style="color:var(--text-3);">All posts &rarr;</a>
+  </div>
+
+::: {#latest}
+:::
+
 </section>
 
 <!-- ===================== SELECTED PAPERS ===================== -->

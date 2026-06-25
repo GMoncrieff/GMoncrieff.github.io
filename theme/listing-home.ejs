@@ -1,0 +1,14 @@
+```{=html}
+<div class="rows">
+<% for (const item of items) { %>
+  <a class="row" href="<%- item.path %>" <%= metadataAttrs(item) %>>
+    <span class="row__date"><%= item.date %></span>
+    <div class="row__main">
+      <h3><%= item.title %></h3>
+      <p><%= item.description %></p>
+    </div>
+    <span class="row__arrow">&rarr;</span>
+  </a>
+<% } %>
+</div>
+```
