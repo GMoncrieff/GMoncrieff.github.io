@@ -1,6 +1,9 @@
 ---
 title: "Glenn Moncrieff"
 pagetitle: "Glenn Moncrieff — Conservation Data Science"
+# the site title is appended to every pagetitle; suppress it here so the home
+# page reads as a name, not "Glenn Moncrieff ... – Glenn Moncrieff"
+title-prefix: ""
 aliases:
   - /about.html
 listing:

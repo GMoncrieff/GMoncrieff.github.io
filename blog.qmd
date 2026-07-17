@@ -1,5 +1,5 @@
 ---
-pagetitle: "Blog — Glenn Moncrieff"
+pagetitle: "Blog"
 listing:
   id: posts
   contents: posts

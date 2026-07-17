@@ -1,6 +1,5 @@
 ---
 title: "Papers"
-pagetitle: "Papers — Glenn Moncrieff"
 ---
 
 ```{=html}
