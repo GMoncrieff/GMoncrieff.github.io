@@ -16,7 +16,7 @@ listing:
 <header class="page-head wrap">
   <span class="mono">// Notes &amp; write-ups</span>
   <h1>Blog</h1>
-  <p>Tutorials, project write-ups, and notes on remote sensing, machine learning, and monitoring vegetation. Most of these were written between 2017 and 2022.</p>
+  <p>Tutorials, project write-ups, and notes on biodiversity, remote sensing, machine learning, and monitoring vegetation. Also my own thoughts on conservation issues and personal notes from big adventures.</p>
 </header>
 
 <section class="section--tight wrap">

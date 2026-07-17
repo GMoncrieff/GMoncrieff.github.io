@@ -7,7 +7,7 @@ pagetitle: "Contact — Glenn Moncrieff"
 <header class="page-head wrap">
   <span class="mono">// Get in touch</span>
   <h1>Contact</h1>
-  <p>I am open to collaborations, talks, student supervision, and consulting work. Email is the best way to reach me.</p>
+  <p>I am open to collaborations, talks, or conversations. Email is the best way to reach me.</p>
 </header>
 
 <section class="section wrap">
@@ -19,7 +19,7 @@ pagetitle: "Contact — Glenn Moncrieff"
       </div>
       <div class="field">
         <span class="field__k">Affiliation</span>
-        <span class="field__v">The Nature Conservancy, Global Science<span class="sub">Also SAEON Fynbos Node and SEEC, University of Cape Town</span></span>
+        <span class="field__v">The Nature Conservancy, Global Science<span class="sub">previously SAEON Fynbos Node and SEEC, University of Cape Town</span></span>
       </div>
       <div class="field">
         <span class="field__k">Based in</span>
@@ -41,17 +41,7 @@ pagetitle: "Contact — Glenn Moncrieff"
 
     <div>
       <img src="assets/avatar.png" alt="Glenn Moncrieff" style="width:100%; max-width:300px; aspect-ratio:1/1; object-fit:cover; border-radius:var(--radius); border:1px solid var(--border); display:block; margin-bottom:24px;" />
-      <p class="mono" style="margin-bottom:12px;">// For students</p>
-      <p style="color:var(--text-2); max-width:46ch;">
-        If you are a prospective student interested in remote sensing, machine learning, or
-        biodiversity monitoring, send me a short note about what you would like to work on, along
-        with a CV. I am most interested in people who enjoy both <span style="color:var(--text);">fieldwork</span>
-        and <span style="color:var(--text);">writing good code</span>.
-      </p>
-      <a class="btn" href="mailto:glennmoncrieff@gmail.com" style="margin-top:22px;">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        Write me an email
-      </a>
+    
     </div>
   </div>
 </section>
