@@ -3,3 +3,6 @@
 /_freeze/
 .playwright-mcp/
 .DS_Store
+
+# local reference material, not part of the site
+/context/

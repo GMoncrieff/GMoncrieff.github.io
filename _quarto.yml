@@ -4,7 +4,7 @@ project:
   render:
     - "*.qmd"
     - "posts/"
-    - "!background/"
+    - "!context/"
     - "!docs/"
 
 website:
