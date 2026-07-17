@@ -3,6 +3,8 @@ title: "Machine learning for vegetation monitoring"
 date: 2022-06-01
 categories: [AI/ML, Remote Sensing, Biodiversity monitoring, Teaching]
 description: "A seminar on using machine learning and satellite data to monitor vegetation."
+aliases:
+  - /posts/2022-10-11-ml-for-vegetation-monitoring/
 ---
 
 ::: {.article}

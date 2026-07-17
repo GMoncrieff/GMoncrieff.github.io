@@ -3,6 +3,8 @@ title: "Automated fynbos identification using iNaturalist and deep learning"
 date: 2018-03-10
 categories: [Python, R, AI/ML, Fynbos]
 description: "Identifying Proteas and Restios from photos with a convolutional neural network."
+aliases:
+  - /posts/fynbos_id/
 ---
 
 ::: {.article}

@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: _site
+  post-render:
+    # Quarto's `aliases:` stubs are JS-only; make them work without JS and
+    # point search engines at the new URL. See scripts/enhance_redirects.py.
+    - python3 scripts/enhance_redirects.py
   render:
     - "*.qmd"
     - "posts/"
@@ -9,6 +13,7 @@ project:
 
 website:
   title: "Glenn Moncrieff"
+  site-url: https://gmoncrieff.github.io
   favicon: assets/logo.svg
   search: false
   navbar:

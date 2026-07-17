@@ -1,6 +1,8 @@
 ---
 title: "Glenn Moncrieff"
 pagetitle: "Glenn Moncrieff — Conservation Data Science"
+aliases:
+  - /about.html
 listing:
   - id: latest
     contents: posts

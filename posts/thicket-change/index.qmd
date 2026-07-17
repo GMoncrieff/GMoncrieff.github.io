@@ -3,6 +3,8 @@ title: "Real-time detection of land cover change"
 date: 2018-10-31
 categories: [Remote Sensing, Conservation, Biodiversity monitoring]
 description: "Detecting vegetation clearing within days using Sentinel-2 and Planet time series."
+aliases:
+  - /posts/thicket_change/
 ---
 
 ::: {.article}

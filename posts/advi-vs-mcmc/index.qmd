@@ -3,6 +3,8 @@ title: "ADVI vs MCMC"
 date: 2020-08-11
 categories: [R, Remote Sensing, Fynbos, Forecasting]
 description: "Two ways to fit a Bayesian model of post-fire vegetation recovery, and when each is worth it."
+aliases:
+  - /posts/2020-08-12-advi-vs-mcmc/
 ---
 
 ::: {.article}

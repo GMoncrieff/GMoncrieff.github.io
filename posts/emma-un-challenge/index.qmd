@@ -3,6 +3,8 @@ title: "EMMA wins the UN Data for Climate Action challenge"
 date: 2017-11-15
 categories: [Remote Sensing, Conservation, Biodiversity monitoring]
 description: "A vegetation monitoring tool for the Cape that won a UN open-data prize."
+aliases:
+  - /posts/emma/
 ---
 
 ::: {.article}

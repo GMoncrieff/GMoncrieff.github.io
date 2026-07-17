@@ -3,6 +3,8 @@ title: "Reproducible R, part 1"
 date: 2020-04-16
 categories: [R, Teaching]
 description: "Tools for making an R analysis reproducible by a stranger: renv, holepunch, and Binder."
+aliases:
+  - /posts/repro-r-1/
 ---
 
 ::: {.article}

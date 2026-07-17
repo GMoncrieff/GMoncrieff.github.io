@@ -3,6 +3,8 @@ title: "Data Carpentry in Ethiopia"
 date: 2017-10-02
 categories: [Teaching]
 description: "Teaching reproducible data skills to researchers at a workshop in Ethiopia."
+aliases:
+  - /posts/dc-ethiopia/
 ---
 
 ::: {.article}

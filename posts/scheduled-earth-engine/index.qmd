@@ -3,6 +3,8 @@ title: "Automate your Google Earth Engine analyses"
 date: 2021-11-27
 categories: [Python, Remote Sensing]
 description: "How to schedule Earth Engine scripts so your analyses run on their own."
+aliases:
+  - /posts/2021-09-22-sheduled-earth-engine/
 ---
 
 ::: {.article}
