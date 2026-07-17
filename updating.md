@@ -38,6 +38,11 @@ theme/
 assets/
   logo.svg              site logo / favicon
   avatar.png            portrait used on the home page
+scripts/
+  check_site.py         verifies internal links and image paths
+  enhance_redirects.py  strengthens the redirect stubs (see Old URLs)
+.github/workflows/
+  publish.yml           builds and deploys the site on every push
 ```
 
 Nav, footer, and brand are defined once in `_quarto.yml`. Theme palette, fonts, and spacing are CSS variables at the top of `theme/custom.scss`.
@@ -135,12 +140,51 @@ Posts that use `::: {.prose}` divs do not need this.
 
 ## Publish
 
+Push to `master`. That is the whole process.
+
 ```bash
-# publish to GitHub Pages (interactive first time, then automatic)
-quarto publish gh-pages
+git add -A
+git commit -m "your message"
+git push
 ```
 
-Or render locally and push `_site/` to any static host (Netlify, Cloudflare Pages, etc.). There is no server-side component.
+`.github/workflows/publish.yml` renders the site and deploys it to
+<https://gmoncrieff.github.io/>, usually within a minute. Do not run
+`quarto publish gh-pages`: there is no `gh-pages` branch, and the source on
+`master` is the only thing that decides what is live.
+
+Watch a build:
+
+```bash
+gh run watch
+```
+
+If the build fails the live site is left untouched, so a broken render never
+reaches visitors. The build also runs `scripts/check_site.py`, so a dead
+internal link or a missing image fails the run rather than shipping.
+
+## Old URLs
+
+The site this replaced used different post slugs. Each renamed post carries an
+`aliases:` entry naming its old URL, which makes Quarto write a small redirect
+page there:
+
+```yaml
+---
+title: "EMMA wins the UN Data for Climate Action challenge"
+aliases:
+  - /posts/emma/
+---
+```
+
+Quarto's own stub redirects with JavaScript only and sets no canonical link, so
+`scripts/enhance_redirects.py` rewrites every stub after each render to lead
+with `rel=canonical` and a meta refresh, keeping the JavaScript for `#anchor`
+links. It is wired in as a `post-render` step in `_quarto.yml` and needs no
+attention.
+
+If you ever rename a post folder, add its previous URL to `aliases:` in the same
+edit. That is what keeps old links and search results working.
 
 ## Notes
 
