@@ -72,7 +72,7 @@ listing:
   <div class="card-grid">
     <div class="card">
       <span class="card__num">01</span>
-      <p class="card__body">Monitor <b>biodiversity and ecosystems</b> from satellite and hyperspectral imagery, at the scale of a whole region.</p>
+      <p class="card__body">Monitor <b>biodiversity and ecosystems</b> from satellite and hyperspectral imagery</p>
     </div>
     <div class="card">
       <span class="card__num">02</span>
