@@ -2,7 +2,7 @@
 title: "SciArgus"
 date: 2026-07-17
 categories: [Python, AI/ML, LLMs]
-description: "A free weekly newsletter that reads the new literature in your field, scores every paper against your interests, and tells you why each one matters."
+description: "A free weekly newsletter that reads the new literature in your field and tells you which papers are actually worth your time."
 ---
 
 ::: {.article}
@@ -14,34 +14,26 @@ description: "A free weekly newsletter that reads the new literature in your fie
 
 # SciArgus
 
-<p class="hero__tag" style="text-align:left; margin:0; max-width:62ch;">A free weekly newsletter that reads the new literature in your field, scores every paper against your interests, and tells you why each one matters.</p>
+<p class="hero__tag" style="text-align:left; margin:0; max-width:62ch;">A free weekly newsletter that reads the new literature in your field and tells you which papers are actually worth your time.</p>
 :::
 
 ::: {.prose}
 
-I have quietly given up on keeping up with the literature.
+Keep up with the firehose of scientific literature is exhausting. Often I just want to give up and crawl into a cave of ignorance.
 
-I don't think I'm alone in this. Thousands of papers appear every week across the journals that could plausibly matter to someone working on remote sensing, machine learning, and biodiversity. Nobody reads that. What most of us actually do is rely on whatever drifts past on social media, or whatever a colleague happens to mention over coffee. That is a terrible sampling strategy. It is biased towards the loud, the well-marketed, and the already-famous, and it misses the quiet paper from a lab in Ghent that solved your exact problem eighteen months ago.
+I don't think this makes me unusual. There are thousands of new papers every week across the journals that might plausibly matter to someones particular interests, and nobody reads that, so what most of us end up doing is relying on whatever floats past on social media or whatever a colleague happens to mention. Which is a pretty bad way to sample the literature. You see the things that are loud and well-marketed, and you miss the quiet paper from some random small lab that solved your exact problem eighteen months ago.
 
-The tools that are supposed to fix this have never worked for me, and I think it's because they fail in two opposite directions.
+The tools that are meant to fix this have never really worked for me. Journal table-of-contents alerts give you everything a journal publishes, so if you follow anything general you're wading through chemistry and immunology to get to the one ecology paper you wanted, and after a month you stop opening the emails. Keyword alerts on Scholar have the opposite problem. They only match the words you happened to think of when you set them up, so they miss the paper that describes your problem in different vocabulary, which is most of them, because a remote sensing person and an ML person can write about the same method and share almost no nouns. And a keyword has no idea what you find interesting anyway. "Machine learning" matches something like a hundred thousand papers a year and about nine of them are for me.
 
-Journal table-of-contents alerts are **too broad**. You subscribe to a journal, and you get everything it publishes. If you follow a big general journal you get a firehose of chemistry and immunology to find the one ecology paper you wanted. The signal is in there somewhere, but the ratio is bad enough that you stop opening the emails after a month.
-
-Keyword alerts on Scholar or PubMed are **too narrow**. They match the words you thought of when you set the alert up. They miss the paper that describes your problem using different vocabulary, which is most of them, because a hyperspectral person and a machine learning person can write about the same method and share almost no nouns. Worse, a keyword has no idea what you find interesting. "Machine learning" matches a hundred thousand papers a year and roughly nine of them are for me.
-
-What I actually wanted was a colleague who reads everything, knows my work well, and sends me a short note on Monday saying "these six are worth your time, and here's why." That is not a keyword problem. It's a reading comprehension problem, and reading comprehension is the one thing language models are genuinely good at now.
-
-So I built [SciArgus](https://github.com/GMoncrieff/SciArgus).
+What I actually wanted was a colleague who reads everything, knows roughly what I work on, and sends me a note on Monday saying these six are worth your time and here's why. That's a reading comprehension problem rather than a search problem, and reading comprehension happens to be something language models got good at recently. So I built [SciArgus](https://github.com/GMoncrieff/SciArgus).
 
 ## The name
 
-In Greek mythology, Argus Panoptes was a giant with a hundred eyes. Hera set him to guard Io, and because he only ever closed some of his eyes at a time, he never actually slept. He was the ideal watchman: always awake, always looking, in every direction at once.
-
-It's a good description of what you want from literature monitoring and a terrible description of what any individual researcher can do. So I named the thing after the giant and let it do the staring.
+In Greek mythology Argus Panoptes was a giant with a hundred eyes. Hera set him to guard Io, and because he only ever closed a few of his eyes at a time he never actually slept, which made him a very good watchman. That's roughly what you want from something monitoring the literature, and roughly the opposite of what any actual researcher can manage, so I named it after him.
 
 ## How it works
 
-SciArgus is a scheduled GitHub Action that runs every Monday morning and emails you a digest. The pipeline has five stages:
+It's a scheduled GitHub Action. It wakes up every Monday morning, does five things, and emails you the result.
 
 ```
 1. RESOLVE     plain-text names  ->  OpenAlex IDs
@@ -51,60 +43,55 @@ SciArgus is a scheduled GitHub Action that runs every Monday morning and emails 
 5. EMAIL       renders an HTML newsletter and sends it
 ```
 
-The part that makes it work is stage 3, and the part that makes stage 3 work is something you write yourself.
+The stage that matters is the scoring, and what makes the scoring work is something you write yourself.
 
-You describe your research interests in your own words, as paragraphs, not keywords. Not "remote sensing, biodiversity, lidar" but an actual description of what you find interesting and why. Mine for one topic runs to about sixty words and mentions specific sensors, specific scales, and the kinds of questions I care about. Then every candidate paper's title and abstract goes to a language model along with all of your topic descriptions, and it scores relevance from 0 to 10 and picks the single topic each paper best matches.
+You describe your research interests in your own words, as paragraphs rather than keywords. Not "remote sensing, biodiversity, lidar" but an actual description of what you find interesting and why. Mine for one topic runs to about sixty words and gets fairly specific about sensors, scales, and the kinds of questions I care about. Every candidate paper's title and abstract then goes off to a language model along with all of your topic descriptions, and it scores relevance from 0 to 10 and picks the single topic each paper best matches.
 
-This is the bit that keyword alerts can't do. The model is reading your description of your interests and reading the paper, and making a judgement about the relationship between them. It catches the paper that never uses your words. It also, pleasingly, ignores the paper that uses all of your words about something you don't care about.
+That's the bit a keyword can't do. The model is reading your description of your interests and reading the paper and making some judgement about how the two relate, so it turns up the paper that never uses your words, and it skips the paper that uses all of your words about something you don't care about.
 
-Journals act as a quality filter rather than a subscription. You give SciArgus a whitelist of journals and preprint servers, and topic searches only return papers published in those venues. This is why a topic as absurdly broad as "machine learning" is still useful: it only ever returns machine learning papers *from the journals you already respect*, not from the entire ML literature. Authors work the other way around. Papers by the people you track are included from any venue at all, which is how you catch a collaborator publishing somewhere you'd never think to look.
+Journals work as a quality filter here, not a subscription. You give it a whitelist of journals and preprint servers, and topic searches only come back with papers published in those venues. This is why a topic as absurdly broad as "machine learning" still works: you only ever get ML papers out of the journals you already read, not the entire ML literature. Authors work the other way around. Papers by the people you track come through from any venue at all, which is how you catch a collaborator publishing somewhere you'd never think to look.
 
-A detail I'm quietly pleased with: when it picks the final papers, it doesn't just take the top 10 by score. It takes the best paper from each of your topics first, and only then fills the remaining slots by score. Without this, a single hot topic will eat the whole newsletter every week, and your quieter interests silently disappear. Round-robin first, greedy second.
+One detail I'm happy with. When it picks the final list it doesn't just take the top 10 by score. It takes the best paper from each of your topics first, and only then fills the remaining slots by score. Without that, one hot topic eats the whole newsletter every week and your quieter interests quietly disappear, which is exactly the failure I was trying to avoid in the first place.
 
-The whole thing runs on a small, cheap model (`gemini-3.1-flash-lite`), scoring papers in batches of ten. A typical week has 100 to 200 candidate papers and costs about 20 model calls.
+The whole thing runs on a small free model (`gemini-3.1-flash-lite`) and scores papers in batches of ten. A typical week throws up 100 to 200 candidates and costs about 20 model calls.
 
 ## What it costs
 
-Nothing, and I mean that literally rather than as a "free tier" wink. Every service it touches has a free allowance that the tool fits inside with room to spare:
+Nothing, and I don't mean that in the "free tier" sense where you're three months from a bill. GitHub Actions gives you 2,000 minutes a month and a run takes about 10, so I use maybe 40 minutes of it. Gemini's free tier allows 15 requests a minute and 500 a day, and a run uses about 20. Gmail will send 500 emails a day and I need one. OpenAlex is free. No credit card goes anywhere.
 
-- **GitHub Actions** gives you 2,000 minutes a month. A run takes about 10 minutes, so roughly 40 minutes a month.
-- **Gemini** allows 15 requests a minute and 500 a day. A run uses about 20.
-- **OpenAlex** is free, and is one of the genuinely good things on the internet: an open index of the world's research, no paywall, no deal with Elsevier.
-- **Gmail** will send 500 emails a day. You need one.
-
-No credit card anywhere. The reason it's a fork-it-yourself repository rather than a website I host is precisely this. If I ran it as a service I'd need to pay for it, which means I'd need to charge for it, or advertise, or harvest something. Because it runs in your own GitHub account on your own free quotas, it can just exist.
+That's also why it's a repository you fork rather than a website I host. If I ran it as a service I'd have to pay for it, so I'd have to charge for it or advertise or harvest something off the back of it. Running in your own GitHub account on your own free quotas, it can just sit there being useful.
 
 ## Quick start
 
-This takes about 30 minutes and needs no programming experience. You will be clicking things in a browser and editing three text files. You never have to run anything on your own machine.
+This takes about 30 minutes and needs no programming experience. You'll be clicking things in a browser and editing three text files. You never have to run anything on your own machine.
 
 ### 1. Fork the repository
 
-You need a [GitHub](https://github.com) account first. If you don't have one, sign up, it's free.
+You'll need a [GitHub](https://github.com) account first. If you don't have one, sign up, it's free.
 
 Then go to the [SciArgus repository](https://github.com/GMoncrieff/SciArgus), click **Fork** in the top right, and click **Create fork**. You now have your own copy at `github.com/YOUR-USERNAME/SciArgus`.
 
-Now the step everyone misses. Forks have Actions disabled by default, so nothing will ever run until you turn them on:
+Now the step everyone misses. Forks have Actions switched off by default, so nothing will ever run until you turn them on:
 
 > Go to the **Actions** tab of *your fork* and click **"I understand my workflows, go ahead and enable them"**.
 
-If you skip this, everything else will look fine and no newsletter will ever arrive.
+Skip this and everything else will look fine and no newsletter will ever arrive.
 
 ### 2. Get a Gemini API key
 
-This is the model that does the scoring and summarising.
+This is the model that does the scoring and the summaries.
 
 1. Go to [Google AI Studio](https://aistudio.google.com/)
 2. Sign in with a Google account
 3. Click **Get API key** in the left sidebar
 4. Click **Create API key**
-5. Copy it somewhere safe for a moment
+5. Copy it somewhere for a minute
 
-The free tier is plenty. You will not be asked for a card.
+The free tier is plenty and you won't be asked for a card.
 
 ### 3. Get an OpenAlex API key
 
-OpenAlex is where the papers come from. You can technically hit the API without a key, but you will run into 429 rate-limit errors, so get one.
+OpenAlex is where the papers come from. You can technically hit the API without a key, but you'll start collecting 429 rate-limit errors, so get one.
 
 1. Go to the [OpenAlex API key page](https://docs.openalex.org/how-to-use-the-api/api-key)
 2. Follow the instructions to request a free key
@@ -112,23 +99,23 @@ OpenAlex is where the papers come from. You can technically hit the API without 
 
 ### 4. Create a Gmail app password
 
-The newsletter is sent through Gmail, and Google won't let a script use your normal password. You need an app password, which is a 16-character password that can send mail and do nothing else.
+The newsletter goes out through Gmail, and Google won't let a script log in with your normal password. You need an app password, which is a 16-character password that can send mail and do nothing else.
 
-**You must have 2-Step Verification enabled first.** The app password page simply won't exist otherwise, which is a confusing dead end if you don't know to expect it.
+You need 2-Step Verification switched on first, otherwise the app password page simply doesn't exist, which is a confusing dead end if you're not expecting it.
 
 1. Go to [myaccount.google.com](https://myaccount.google.com) and click **Security**
 2. Under "How you sign in to Google", turn **2-Step Verification** on if it isn't already
 3. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
 4. Under "App name", type `SciArgus` and click **Create**
-5. Copy the 16-character password immediately, because it is never shown again
+5. Copy the 16-character password straight away, because it's never shown again
 
-If you'd rather the newsletter didn't come from your main address, make a throwaway Gmail account and use that as the sender. It works fine.
+If you'd rather the newsletter didn't come from your main address, make a throwaway Gmail account and send from that.
 
 ### 5. Add your secrets to GitHub
 
-Secrets are private values the Action can read but which never appear in your code or your logs.
+Secrets are private values the Action can read but which never show up in your code or your logs.
 
-In *your fork*, go to **Settings** > **Secrets and variables** > **Actions**, and click **New repository secret** for each of these. The names must match exactly:
+In *your fork*, go to **Settings** > **Secrets and variables** > **Actions**, and click **New repository secret** for each of these. The names have to match exactly:
 
 - `GEMINI_KEY`: your Gemini key from step 2
 - `OPENALEX_SECRET`: your OpenAlex key from step 3
@@ -142,7 +129,7 @@ Sender and receiver can be the same address.
 
 Three plain text files in the `config/` folder decide everything. Edit them directly on GitHub: click the file, click the pencil icon, edit, click **Commit changes**.
 
-**`config/topics.md`** is the one that matters. Each topic is a heading, then a description paragraph. The heading is used as a search query. The description is what the model uses to judge relevance and to write your summaries.
+`config/topics.md` is the one that matters. Each topic is a heading followed by a description paragraph. The heading gets used as a search query, and the description is what the model uses to judge relevance and to write your summaries.
 
 ```markdown
 #Remote Sensing of Biodiversity
@@ -155,9 +142,9 @@ creation of novel algorithms for ecosystem monitoring, and advancements
 in leveraging existing sensors to derive critical biodiversity information.
 ```
 
-Be specific. This is the single biggest lever on whether the newsletter is any good. A one-line description like "I like remote sensing" produces a noisy, useless digest, because you've given the model nothing to discriminate with. Mention methods, organisms, scales, sensors, the questions you actually argue about. Five to fifteen topics works well. Each paper is assigned to at most one topic, so overlapping topics won't produce duplicates.
+Be specific here. A one-liner like "I like remote sensing" gives the model nothing to discriminate with and you get a noisy useless digest. Mention methods, organisms, scales, sensors, the questions you actually argue about at conferences. Five to fifteen topics is a good range. Each paper gets assigned to at most one topic, so overlapping topics won't give you duplicates.
 
-**`config/authors.md`** is one name per line:
+`config/authors.md` is one name per line:
 
 ```
 Andrew Balmford
@@ -165,9 +152,9 @@ Sara Beery
 Hugh Possingham
 ```
 
-Use the name as it appears on their papers. OpenAlex resolves to the highest-cited match, so common names usually land correctly. Twenty to fifty is a sensible range.
+Use the name as it appears on their papers. OpenAlex resolves to the highest-cited match, so common names usually land on the right person. Twenty to fifty is sensible.
 
-**`config/journals.md`** is one journal or preprint server per line:
+`config/journals.md` is one journal or preprint server per line:
 
 ```
 Nature
@@ -177,29 +164,29 @@ Conservation Biology
 Remote Sensing of Environment
 ```
 
-Cast a wide net here, 50 to 150 is typical, and include the preprint servers for your field so you see things before formal publication. Remember this list only filters *topic* searches. Papers by your tracked authors come through regardless.
+Cast a wide net, 50 to 150 is typical, and put in the preprint servers for your field so you see things before formal publication. Remember this list only filters *topic* searches. Papers by your tracked authors come through regardless of where they appear.
 
 ### 7. Test it before you trust it
 
-Don't wait until Monday to find out you typed a secret name wrong.
+Don't wait until Monday to discover you typed a secret name wrong.
 
 1. Go to the **Actions** tab
 2. Click **Weekly SciArgus Newsletter** in the left sidebar
 3. Click **Run workflow** > **Run workflow**
 4. Wait 5 to 10 minutes. You can click into the running job and watch the logs live
-5. Check your inbox, and check your spam folder
+5. Check your inbox, then check your spam folder
 
-That's it. From now on it arrives every Monday at 08:00 UTC and you never touch it again.
+That's it. It'll arrive every Monday at 08:00 UTC from now on and you never have to touch it again.
 
 ### 8. Changing the schedule
 
-If Monday at 08:00 UTC doesn't suit, edit `.github/workflows/weekly_newsletter.yml`. The `cron` line is the schedule, in UTC, in the format `minute hour day-of-month month day-of-week`:
+If Monday at 08:00 UTC doesn't suit you, edit `.github/workflows/weekly_newsletter.yml`. The `cron` line is the schedule, in UTC, in the format `minute hour day-of-month month day-of-week`:
 
 ```yaml
 - cron: '0 8 * * 1'   # Monday 08:00 UTC
 ```
 
-So `'0 14 * * 5'` would give you 2pm UTC on Fridays.
+So `'0 14 * * 5'` gets you 2pm UTC on Fridays.
 
 ## When it goes wrong
 
@@ -207,21 +194,19 @@ A few things that catch people out:
 
 **Nothing ran at all.** You didn't enable Actions on your fork. See step 1.
 
-**"No results for [some name]".** OpenAlex couldn't resolve that author or journal. Check the spelling against how it appears on their publications or the journal's own website. Accented characters need to be the real Unicode character.
+**"No results for [some name]".** OpenAlex couldn't resolve that author or journal. Check the spelling against how it appears on their papers or the journal's own website. Accented characters need to be the real Unicode character.
 
-**A journal throws a 400.** Some journal names containing commas break the OpenAlex filter syntax. Shorten the name or drop the comma.
+**A journal throws a 400.** Some journal names with commas in them break the OpenAlex filter syntax. Shorten the name or drop the comma.
 
-**Gemini returns 429 RESOURCE_EXHAUSTED.** You've hit the rate limit. It retries automatically, and normal usage sits far below the daily cap, so this usually means something ran a lot more than it should have.
+**Gemini returns 429 RESOURCE_EXHAUSTED.** You've hit the rate limit. It retries by itself, and normal usage sits well under the daily cap, so this usually means something ran a lot more often than it should have.
 
-**The email never arrived.** Check spam. A brand new Gmail sender address often gets filtered for the first few sends. Mark it "not spam" once and it settles down.
+**The email never arrived.** Check spam. A brand new Gmail sender often gets filtered for the first few sends. Mark it "not spam" once and it settles down.
 
 **The papers are boring.** Your topic descriptions are too vague. This is nearly always the answer. Go back and write more.
 
 ## Is it any good?
 
-I've been running it on myself for a while now. The honest answer is that it's good at breadth and mediocre at depth, which is exactly what I wanted. It reliably surfaces two or three papers a week that I would not otherwise have seen, and about half of those are ones I actually read. It has never once found me a paper that changed my life. It has repeatedly found me papers that saved me a fortnight.
-
-The failure mode is that it is agreeable. If you describe your interests, it finds papers matching your interests, and it will cheerfully help you read the same thing forever. It is a tool for keeping up, not for being surprised. Being surprised is still on you.
+I've been running it on myself for a few months. It's good at breadth and pretty mediocre at depth, which is roughly what I was after. It reliably turns up two or three papers a week that I wouldn't otherwise have seen, and I properly read maybe half of those. The obvious limitation is that it's agreeable. You tell it what you're interested in, it finds you papers about what you're interested in, and it will cheerfully help you read the same thing forever. It's a tool for keeping up. Finding the thing outside what you already know you like is a different problem and I don't have a good answer for it.
 
 The code is on [GitHub](https://github.com/GMoncrieff/SciArgus). If you fork it and it breaks, open an issue and tell me.
 
